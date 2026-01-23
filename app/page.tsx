@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { projects } from "../data/projects";
 
@@ -11,6 +12,14 @@ export default function HomePage() {
         <h1 className="text-4xl font-semibold text-white sm:text-5xl">
           Insane Rabbit
         </h1>
+        <Image
+          src="/images/InsaneRabbit_LOGO_1.png"
+          alt="Insane Rabbit logo"
+          width={800}
+          height={450}
+          priority
+          className="mt-6 w-full max-w-sm sm:max-w-md"
+        />
         <p className="max-w-2xl text-lg text-zinc-300">
           Independent software studio building focused tools and apps.
         </p>
@@ -22,8 +31,7 @@ export default function HomePage() {
         </h2>
         <p className="mt-4 max-w-3xl text-base text-zinc-300">
           Insane Rabbit is an independent studio building software, iOS apps, and
-          web tools. This site exists primarily to host project information,
-          privacy policies, and terms for compliance and transparency.
+          web tools.
         </p>
       </section>
 
