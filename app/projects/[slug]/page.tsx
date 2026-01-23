@@ -34,6 +34,26 @@ export default function ProjectPage({
         <p className="max-w-3xl text-lg text-zinc-300">
           {project.description}
         </p>
+        {project.slug === "timecam" ? (
+          <a
+            href="https://www.timecam.ai"
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-zinc-300 transition hover:text-white"
+          >
+            Visit TimeCam.ai
+          </a>
+        ) : null}
+        {project.slug === "scriptforge" ? (
+          <a
+            href="https://www.scriptforgeapp.com"
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-zinc-300 transition hover:text-white"
+          >
+            Visit ScriptForge
+          </a>
+        ) : null}
       </section>
 
       <section className="border-t border-white/10 pt-8">
