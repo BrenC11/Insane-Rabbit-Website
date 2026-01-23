@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getProjectBySlug, projects } from "../../../data/projects";
 
@@ -48,16 +49,22 @@ export default function ProjectPage({
 
       <section className="border-t border-white/10 pt-8">
         <h2 className="text-sm uppercase tracking-[0.3em] text-zinc-500">
-          Privacy Policy
+          Policies
         </h2>
-        <p className="mt-4 text-base text-zinc-300">{project.privacyPolicy}</p>
-      </section>
-
-      <section className="border-t border-white/10 pt-8">
-        <h2 className="text-sm uppercase tracking-[0.3em] text-zinc-500">
-          Terms &amp; Conditions
-        </h2>
-        <p className="mt-4 text-base text-zinc-300">{project.terms}</p>
+        <div className="mt-4 flex flex-wrap gap-4 text-sm text-zinc-300">
+          <Link
+            href={`/projects/${project.slug}/privacy`}
+            className="transition hover:text-white"
+          >
+            Privacy Policy
+          </Link>
+          <Link
+            href={`/projects/${project.slug}/terms`}
+            className="transition hover:text-white"
+          >
+            Terms
+          </Link>
+        </div>
       </section>
     </div>
   );

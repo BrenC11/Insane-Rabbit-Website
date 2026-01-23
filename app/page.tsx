@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { projects } from "../data/projects";
 
@@ -12,14 +11,6 @@ export default function HomePage() {
         <h1 className="text-4xl font-semibold text-white sm:text-5xl">
           Insane Rabbit
         </h1>
-        <Image
-          src="/images/InsaneRabbit_LOGO_1.png"
-          alt="Insane Rabbit logo"
-          width={800}
-          height={450}
-          priority
-          className="mt-6 w-full max-w-sm sm:max-w-md"
-        />
         <p className="max-w-2xl text-lg text-zinc-300">
           Independent software studio building focused tools and apps.
         </p>
@@ -66,6 +57,43 @@ export default function HomePage() {
                 View project -&gt;
               </span>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="border-t border-white/10 pt-10">
+        <div className="flex items-center justify-between">
+          <h2 className="text-sm uppercase tracking-[0.3em] text-zinc-500">
+            Policies
+          </h2>
+          <span className="text-xs text-zinc-500">
+            Privacy and terms by project
+          </span>
+        </div>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">
+          {projects.map((project) => (
+            <div
+              key={project.slug}
+              className="rounded-lg border border-white/10 bg-white/5 p-5"
+            >
+              <p className="text-sm font-semibold text-white">
+                {project.name}
+              </p>
+              <div className="mt-3 flex gap-4 text-sm text-zinc-300">
+                <Link
+                  href={`/projects/${project.slug}/privacy`}
+                  className="transition hover:text-white"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href={`/projects/${project.slug}/terms`}
+                  className="transition hover:text-white"
+                >
+                  Terms
+                </Link>
+              </div>
+            </div>
           ))}
         </div>
       </section>
