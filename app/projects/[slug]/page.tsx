@@ -54,6 +54,22 @@ export default function ProjectPage({
             Visit ScriptForge
           </a>
         ) : null}
+        {project.slug === "who-were-you" ? (
+          <details className="text-sm text-zinc-300">
+            <summary className="flex cursor-pointer items-center gap-2 text-zinc-400 transition hover:text-white">
+              Support
+              <span className="text-xs">v</span>
+            </summary>
+            <div className="mt-2">
+              <Link
+                href="/projects/who-were-you/support"
+                className="transition hover:text-white"
+              >
+                Support &amp; Help
+              </Link>
+            </div>
+          </details>
+        ) : null}
       </section>
 
       <section className="border-t border-white/10 pt-8">

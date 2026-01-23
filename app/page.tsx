@@ -61,58 +61,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-white/10 pt-10">
-        <div className="flex items-center justify-between">
-          <h2 className="text-sm uppercase tracking-[0.3em] text-zinc-500">
-            Policies
-          </h2>
-          <span className="text-xs text-zinc-500">
-            Privacy and terms by project
-          </span>
-        </div>
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          {projects.map((project) => (
-            <div
-              key={project.slug}
-              className="rounded-lg border border-white/10 bg-white/5 p-5"
-            >
-              <p className="text-sm font-semibold text-white">
-                {project.name}
-              </p>
-              <div className="mt-3 flex gap-4 text-sm text-zinc-300">
-                <Link
-                  href={`/projects/${project.slug}/privacy`}
-                  className="transition hover:text-white"
-                >
-                  Privacy Policy
-                </Link>
-                <Link
-                  href={`/projects/${project.slug}/terms`}
-                  className="transition hover:text-white"
-                >
-                  Terms
-                </Link>
-              </div>
-              {project.slug === "who-were-you" ? (
-                <details className="mt-4 text-sm text-zinc-300">
-                  <summary className="flex cursor-pointer items-center gap-2 text-zinc-400 transition hover:text-white">
-                    Support
-                    <span className="text-xs">v</span>
-                  </summary>
-                  <div className="mt-2">
-                    <Link
-                      href="/projects/who-were-you/support"
-                      className="transition hover:text-white"
-                    >
-                      Support &amp; Help
-                    </Link>
-                  </div>
-                </details>
-              ) : null}
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   );
 }

@@ -2,7 +2,7 @@ export type Project = {
   slug: string;
   name: string;
   description: string;
-  platform: "Web App" | "iOS App";
+  platform: "Web App" | "iOS App" | "iOS & iPad App";
   privacyPolicy: string;
   terms: string;
 };
@@ -156,6 +156,17 @@ You may stop using the App at any time by deleting it.
 7. Governing Law
 
 For UK and EU users, this Agreement is governed by the laws of your country of residence, in line with Apple's Standard EULA.`
+  },
+  {
+    slug: "vector",
+    name: "Vector",
+    description:
+      "Vector is an AI-powered creative and technical engine that helps turn ideas into working products faster. It connects advanced language models to real-world workflows—handling reasoning, structure, and execution—so you can focus on building, iterating, and shipping. Vector is designed for creators, developers, and founders who want speed, clarity, and control without the usual friction.",
+    platform: "iOS & iPad App",
+    privacyPolicy:
+      "Vector respects user privacy and only collects data needed to operate the app. This placeholder will be replaced with the official policy.",
+    terms:
+      "By using Vector, you agree to the standard terms of the app. This placeholder will be replaced with the official terms."
   }
 ];
 
