@@ -51,7 +51,7 @@ export default function HomePage() {
                 </span>
               </div>
               <p className="mt-3 text-sm text-zinc-300">
-                {project.description}
+                {project.shortDescription ?? project.description}
               </p>
               <span className="mt-4 inline-flex text-xs text-zinc-500 group-hover:text-zinc-200">
                 View project -&gt;

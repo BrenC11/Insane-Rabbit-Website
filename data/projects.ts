@@ -2,6 +2,7 @@ export type Project = {
   slug: string;
   name: string;
   description: string;
+  shortDescription?: string;
   platform: "Web App" | "iOS App" | "iOS & iPad App";
   privacyPolicy: string;
   terms: string;
@@ -160,6 +161,8 @@ For UK and EU users, this Agreement is governed by the laws of your country of r
   {
     slug: "vector",
     name: "Vector",
+    shortDescription:
+      "Vector is an AI-powered assistant that turns raw ideas into clear decisions and actionable plans.",
     description:
       "Vector is an AI-powered assistant that turns raw ideas into clear decisions and actionable plans. Vector helps you move ideas forward. Drop in a thought, a concept, or a half-formed plan, and Vector organises it, pressure-tests it, finds what it’s similar to, and shows you what to do next. No endless lists, no false hype - just clarity, realism, and momentum from idea to action.",
     platform: "iOS & iPad App",
