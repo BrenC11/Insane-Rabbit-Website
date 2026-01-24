@@ -4,6 +4,7 @@ export type Project = {
   description: string;
   shortDescription?: string;
   platform: "Web App" | "iOS App" | "iOS & iPad App";
+  websiteUrl?: string;
   privacyPolicy: string;
   terms: string;
 };
@@ -17,6 +18,7 @@ export const projects: Project[] = [
     description:
       "Script Forge is a comprehensive AI-driven screenwriting toolkit built for writers who want clear, actionable feedback-without the guesswork. It analyses screenplays at a professional level, breaking down story structure, character agency, dialogue, pacing, and theme to highlight both strengths and weaknesses. Writers can access everything from quick coverage reports to deep, multi-page evaluations packed with practical improvement notes. Script Forge also offers specialist tools like character agency analysis, first-10-page deep dives, and visual Poster Labs that turn scripts and ideas into striking pitch-ready artwork. Designed to support consistent growth, Script Forge rewards regular writing, helps writers track progress, and provides insights that feel closer to a seasoned script reader than a generic AI. Whether you're polishing a short, developing a feature, or preparing a script for producers, Script Forge is built to help you level up faster-and with confidence.",
     platform: "Web App",
+    websiteUrl: "https://www.scriptforgeapp.com",
     privacyPolicy:
       "ScriptForge respects user privacy and only collects data needed to operate the service. This placeholder will be replaced with the official policy.",
     terms:
@@ -30,6 +32,7 @@ export const projects: Project[] = [
     description:
       "TimeCam is a creative camera app that lets you capture the present and instantly transform it into another time period - past or future. Take a photo or video, choose a time era, and TimeCam reimagines the scene as if it were captured years ago... or decades ahead. Powered by advanced AI, TimeCam preserves the original composition of your image while changing the world around it - architecture, atmosphere, lighting, and subtle details evolve to match the selected era. From nostalgic past aesthetics to speculative futures, every result feels cinematic and grounded in the original moment. TimeCam is built for creators, storytellers, and anyone curious about how the same moment might look across time. Whether you're experimenting, world-building, or just having fun, TimeCam turns everyday photos into time-travel snapshots. Capture now. See then. Explore what's next.",
     platform: "iOS App",
+    websiteUrl: "https://www.timecam.ai",
     privacyPolicy:
       "TimeCam.ai collects only the minimum data required to provide app functionality. This placeholder will be replaced with the official policy.",
     terms:

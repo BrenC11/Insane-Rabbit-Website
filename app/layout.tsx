@@ -3,16 +3,31 @@ import type { Metadata } from "next";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ??
+  process.env.SITE_URL ??
+  (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined) ??
+  "http://localhost:3000";
+
 export const metadata: Metadata = {
-  title: "Insane Rabbit",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Insane Rabbit",
+    template: "%s | Insane Rabbit"
+  },
   description: "Independent software studio building focused tools and apps.",
   openGraph: {
+    type: "website",
+    url: "/",
+    siteName: "Insane Rabbit",
     title: "Insane Rabbit",
     description: "Independent software studio building focused tools and apps.",
     images: [
       {
-        url: "/images/InsaneRabbit_LOGO_1.png",
-        alt: "Insane Rabbit logo"
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Insane Rabbit"
       }
     ]
   },
@@ -20,7 +35,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Insane Rabbit",
     description: "Independent software studio building focused tools and apps.",
-    images: ["/images/InsaneRabbit_LOGO_1.png"]
+    images: ["/opengraph-image"]
   },
   icons: {
     icon: "/images/InsaneRabbit_LOGO_1.png",

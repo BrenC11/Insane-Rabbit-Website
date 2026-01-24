@@ -1,11 +1,50 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { getProjectBySlug, projects } from "../../../data/projects";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
+}
+
+export function generateMetadata({
+  params
+}: {
+  params: { slug: string };
+}): Metadata {
+  const project = getProjectBySlug(params.slug);
+
+  if (!project) {
+    return {
+      title: "Project not found"
+    };
+  }
+
+  const description = project.shortDescription ?? project.description;
+
+  return {
+    title: project.name,
+    description,
+    openGraph: {
+      title: project.name,
+      description,
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "Insane Rabbit"
+        }
+      ]
+    },
+    twitter: {
+      title: project.name,
+      description,
+      images: ["/opengraph-image"]
+    }
+  };
 }
 
 export default function ProjectPage({
@@ -34,24 +73,14 @@ export default function ProjectPage({
         <p className="max-w-3xl text-lg text-zinc-300">
           {project.description}
         </p>
-        {project.slug === "timecam" ? (
+        {project.websiteUrl ? (
           <a
-            href="https://www.timecam.ai"
+            href={project.websiteUrl}
             target="_blank"
             rel="noreferrer"
             className="text-sm text-zinc-300 transition hover:text-white"
           >
-            Visit TimeCam.ai
-          </a>
-        ) : null}
-        {project.slug === "scriptforge" ? (
-          <a
-            href="https://www.scriptforgeapp.com"
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm text-zinc-300 transition hover:text-white"
-          >
-            Visit ScriptForge
+            Visit website
           </a>
         ) : null}
         {project.slug === "who-were-you" ? (
