@@ -39,6 +39,109 @@ export const projects: Project[] = [
       "By using TimeCam.ai, you agree to the standard terms of the app. This placeholder will be replaced with the official terms."
   },
   {
+    slug: "dive-bar-finder",
+    name: "Dive Bar Finder",
+    shortDescription:
+      "Dive Bar Finder helps you discover nearby dive bars - rock, metal, goth, and alternative spots - using your location to surface the right places fast.",
+    description:
+      "Dive Bar Finder is an iOS location discovery app built for people who want the real places - dive bars with rock, metal, goth, and alternative vibes. Open the app, see what’s nearby, and explore bars around you without endless searching. It’s designed to make finding your next haunt quick, local, and effortless.",
+    platform: "iOS App",
+    privacyPolicy: `DIVE BAR FINDER - PRIVACY POLICY
+
+Last updated: 25 January 2026
+
+Dive Bar Finder ("the App") respects your privacy. This Privacy Policy explains how data is handled when you use the App.
+
+1. Information We Collect
+
+a. Location Data
+
+Dive Bar Finder uses your location to show nearby bars.
+- Location access is only used if you grant permission
+- You can use the App with limited functionality without precise location by denying permission (where supported)
+- The App may use approximate and/or precise location depending on the permission you choose
+
+b. Search and Usage Data
+
+The App may process basic usage information (such as which screens are used) to improve stability and user experience.
+
+c. Crash and Performance Data
+
+We may collect anonymised crash logs and performance diagnostics to improve reliability.
+
+2. How Your Data Is Used
+
+We use data only to:
+- Show bars near you and improve relevance of results
+- Improve app performance and fix bugs
+- Provide customer support if you contact us
+
+3. Data Storage and Sharing
+- We do not sell your personal data
+- We do not share your personal data with third parties for advertising
+- Any data stored is limited to what is necessary for core functionality and performance
+
+4. Third-Party Services
+
+The App may rely on Apple and mapping/location services (for example, Apple Maps) to provide location-based results. These services are governed by their own privacy policies.
+
+5. Your Choices
+- You can change location permissions at any time in iOS Settings
+- You can delete the App to remove locally stored app data
+
+6. Children's Privacy
+
+Dive Bar Finder is not intended for children under 13 and does not knowingly collect personal data from children.
+
+7. Changes
+
+We may update this policy from time to time. Continued use of the App means you accept the updated policy.
+
+8. Contact
+
+If you have questions about privacy, contact:`,
+    terms: `DIVE BAR FINDER - TERMS OF USE
+
+Last updated: 25 January 2026
+
+By downloading, accessing, or using Dive Bar Finder ("the App"), you agree to these Terms of Use.
+
+1. The Service
+
+Dive Bar Finder helps users discover bars and venues based on location and availability of public data sources. Results may be incomplete, outdated, or inaccurate.
+
+2. No Guarantees
+- We do not guarantee venue accuracy, opening hours, music style, safety, or suitability
+- Venues can change at any time; always verify details before visiting
+
+3. Acceptable Use
+
+You agree not to use the App:
+- For unlawful purposes
+- To harass, stalk, or endanger others
+- To interfere with the App or attempt to access systems without authorisation
+
+4. Location Permissions
+
+Some features require location access. You can disable location at any time in iOS Settings, but functionality may be reduced.
+
+5. Intellectual Property
+
+All app content, branding, and design are owned by Insane Rabbit or its licensors unless otherwise stated.
+
+6. Limitation of Liability
+
+To the maximum extent permitted by law, Insane Rabbit is not liable for any damages arising from use of the App, including reliance on venue information or location results.
+
+7. Termination
+
+We may suspend or terminate access if you breach these Terms or if continued use poses legal or security risks.
+
+8. Changes
+
+We may update these Terms. Continued use of the App means you accept the updated Terms.`
+  },
+  {
     slug: "who-were-you",
     name: "WhoWereYou?",
     description:
