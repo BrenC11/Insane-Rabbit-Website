@@ -46,100 +46,128 @@ export const projects: Project[] = [
     description:
       "Dive Bar Finder is an iOS location discovery app built for people who want the real places - dive bars with rock, metal, goth, and alternative vibes. Open the app, see what’s nearby, and explore bars around you without endless searching. It’s designed to make finding your next haunt quick, local, and effortless.",
     platform: "iOS App",
-    privacyPolicy: `DIVE BAR FINDER - PRIVACY POLICY
+    privacyPolicy: `PRIVACY POLICY
+Dive Bar Finder
 
-Last updated: 25 January 2026
+Last updated: [INSERT DATE]
 
-Dive Bar Finder ("the App") respects your privacy. This Privacy Policy explains how data is handled when you use the App.
+Dive Bar Finder (“the App”) respects your privacy. This Privacy Policy explains how information is collected, used, and protected when you use the App.
 
-1. Information We Collect
+INFORMATION WE COLLECT
 
-a. Location Data
+Dive Bar Finder is designed to be lightweight and privacy-friendly.
 
-Dive Bar Finder uses your location to show nearby bars.
-- Location access is only used if you grant permission
-- You can use the App with limited functionality without precise location by denying permission (where supported)
-- The App may use approximate and/or precise location depending on the permission you choose
+Information You Provide
+The App does not require account creation.
+We do not collect names, email addresses, phone numbers, or payment details.
 
-b. Search and Usage Data
+Automatically Collected Information
+The App may collect non-personally identifiable technical data, including:
+- Device type and operating system
+- App version
+- Anonymous usage and performance data
+- Approximate location data (if location services are enabled)
 
-The App may process basic usage information (such as which screens are used) to improve stability and user experience.
+This data is used only to:
+- Improve app performance
+- Fix bugs
+- Understand feature usage
 
-c. Crash and Performance Data
+LOCATION DATA
 
-We may collect anonymised crash logs and performance diagnostics to improve reliability.
+If you allow location access, Dive Bar Finder may use your location solely to show nearby dive bars or venues.
 
-2. How Your Data Is Used
+- Location access is optional
+- You can disable it at any time in your device settings
+- Location data is not stored, sold, or used for advertising
 
-We use data only to:
-- Show bars near you and improve relevance of results
-- Improve app performance and fix bugs
-- Provide customer support if you contact us
+DATA SHARING
 
-3. Data Storage and Sharing
-- We do not sell your personal data
-- We do not share your personal data with third parties for advertising
-- Any data stored is limited to what is necessary for core functionality and performance
+We do not sell, rent, or trade your data.
 
-4. Third-Party Services
+Limited data may be processed by trusted third-party services (such as Apple or analytics tools) only to support core app functionality.
 
-The App may rely on Apple and mapping/location services (for example, Apple Maps) to provide location-based results. These services are governed by their own privacy policies.
+DATA SECURITY
 
-5. Your Choices
-- You can change location permissions at any time in iOS Settings
-- You can delete the App to remove locally stored app data
+We take reasonable steps to protect information using industry-standard safeguards. However, no system can be guaranteed 100% secure.
 
-6. Children's Privacy
+CHILDREN’S PRIVACY
 
-Dive Bar Finder is not intended for children under 13 and does not knowingly collect personal data from children.
+Dive Bar Finder does not knowingly collect personal data from children under 13. If you believe such data has been collected, please contact us so we can remove it.
 
-7. Changes
+YOUR RIGHTS (UK / EU / GDPR)
 
-We may update this policy from time to time. Continued use of the App means you accept the updated policy.
+You have the right to:
+- Request access to your data
+- Request deletion of your data
+- Withdraw consent for location access at any time
 
-8. Contact
+Because Dive Bar Finder stores little to no personal data, most requests can be resolved immediately.
 
-If you have questions about privacy, contact:`,
-    terms: `DIVE BAR FINDER - TERMS OF USE
+CHANGES TO THIS POLICY
 
-Last updated: 25 January 2026
+This Privacy Policy may be updated from time to time. Any changes will be reflected by updating the “Last updated” date.
 
-By downloading, accessing, or using Dive Bar Finder ("the App"), you agree to these Terms of Use.
+CONTACT
 
-1. The Service
+If you have questions about this Privacy Policy, contact:
 
-Dive Bar Finder helps users discover bars and venues based on location and availability of public data sources. Results may be incomplete, outdated, or inaccurate.
+App Provider: Dive Bar Finder  
+Email: [INSERT SUPPORT EMAIL]`,
+    terms: `LICENSED APPLICATION END USER LICENSE AGREEMENT
 
-2. No Guarantees
-- We do not guarantee venue accuracy, opening hours, music style, safety, or suitability
-- Venues can change at any time; always verify details before visiting
+Apps made available through the App Store are licensed, not sold, to you. Your license to each App is subject to your prior acceptance of either this Licensed Application End User License Agreement (“Standard EULA”), or a custom end user license agreement between you and the Application Provider (“Custom EULA”), if one is provided.
 
-3. Acceptable Use
+Your license to any Apple App under this Standard EULA or Custom EULA is granted by Apple, and your license to any Third Party App under this Standard EULA or Custom EULA is granted by the Application Provider of that Third Party App.
 
-You agree not to use the App:
-- For unlawful purposes
-- To harass, stalk, or endanger others
-- To interfere with the App or attempt to access systems without authorisation
+Any App that is subject to this Standard EULA is referred to herein as the “Licensed Application.”
+The Application Provider or Apple as applicable (“Licensor”) reserves all rights in and to the Licensed Application not expressly granted to you under this Standard EULA.
 
-4. Location Permissions
+a. Scope of License
 
-Some features require location access. You can disable location at any time in iOS Settings, but functionality may be reduced.
+Licensor grants to you a non-transferable license to use the Licensed Application Dive Bar Finder on any Apple-branded products that you own or control and as permitted by the Usage Rules.
 
-5. Intellectual Property
+You may not distribute or make the Licensed Application available over a network where it could be used by multiple devices at the same time. You may not transfer, redistribute, or sublicense the Licensed Application.
 
-All app content, branding, and design are owned by Insane Rabbit or its licensors unless otherwise stated.
+b. Consent to Use of Data
 
-6. Limitation of Liability
+You agree that Licensor may collect and use technical data and related information—including but not limited to technical information about your device, system and application software—that is gathered periodically to facilitate software updates, product support, and other services related to the Licensed Application.
 
-To the maximum extent permitted by law, Insane Rabbit is not liable for any damages arising from use of the App, including reliance on venue information or location results.
+This data will be used only in a form that does not personally identify you.
 
-7. Termination
+c. Termination
 
-We may suspend or terminate access if you breach these Terms or if continued use poses legal or security risks.
+This Standard EULA is effective until terminated by you or Licensor. Your rights under this Standard EULA will terminate automatically if you fail to comply with any of its terms.
 
-8. Changes
+d. External Services
 
-We may update these Terms. Continued use of the App means you accept the updated Terms.`
+The Licensed Application may enable access to third-party services and websites. You agree to use such services at your sole risk. Licensor is not responsible for examining or evaluating the content or accuracy of any third-party services.
+
+e. No Warranty
+
+THE LICENSED APPLICATION IS PROVIDED “AS IS” AND “AS AVAILABLE,” WITH ALL FAULTS AND WITHOUT WARRANTY OF ANY KIND, TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW.
+
+f. Limitation of Liability
+
+TO THE EXTENT NOT PROHIBITED BY LAW, IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY INCIDENTAL, SPECIAL, INDIRECT, OR CONSEQUENTIAL DAMAGES.
+
+Licensor’s total liability shall not exceed fifty dollars ($50.00), except where prohibited by law.
+
+g. Export Restrictions
+
+You may not use or export or re-export the Licensed Application except as authorized by United States law and the laws of the jurisdiction in which the Licensed Application was obtained.
+
+h. U.S. Government Rights
+
+The Licensed Application and related documentation are “Commercial Items” as defined under applicable U.S. regulations.
+
+i. Governing Law
+
+Except where prohibited by local law, this Agreement shall be governed by the laws of the State of California.
+
+If you are a resident of the European Union, Switzerland, Norway, or Iceland, the governing law shall be the law of your country of residence.
+
+The United Nations Convention on the International Sale of Goods does not apply.`
   },
   {
     slug: "who-were-you",
