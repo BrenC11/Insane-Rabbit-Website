@@ -49,7 +49,7 @@ export const projects: Project[] = [
     privacyPolicy: `PRIVACY POLICY
 Dive Bar Finder
 
-Last updated: [INSERT DATE]
+Last updated: 26 January 2026
 
 Dive Bar Finder (“the App”) respects your privacy. This Privacy Policy explains how information is collected, used, and protected when you use the App.
 
@@ -115,6 +115,8 @@ If you have questions about this Privacy Policy, contact:
 App Provider: Dive Bar Finder  
 Email: [INSERT SUPPORT EMAIL]`,
     terms: `LICENSED APPLICATION END USER LICENSE AGREEMENT
+
+Last updated: 26 January 2026
 
 Apps made available through the App Store are licensed, not sold, to you. Your license to each App is subject to your prior acceptance of either this Licensed Application End User License Agreement (“Standard EULA”), or a custom end user license agreement between you and the Application Provider (“Custom EULA”), if one is provided.
 
