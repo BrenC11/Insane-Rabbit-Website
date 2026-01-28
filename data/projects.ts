@@ -113,7 +113,7 @@ CONTACT
 If you have questions about this Privacy Policy, contact:
 
 App Provider: Dive Bar Finder  
-Email: [INSERT SUPPORT EMAIL]`,
+Email: support@insanerabbit.com`,
     terms: `LICENSED APPLICATION END USER LICENSE AGREEMENT
 
 Last updated: 27 January 2026

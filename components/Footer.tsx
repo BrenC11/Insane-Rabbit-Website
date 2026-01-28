@@ -20,6 +20,12 @@ export default function Footer() {
           <Link href="/terms" className="transition hover:text-zinc-200">
             Terms
           </Link>
+          <a
+            href="mailto:support@insanerabbit.com"
+            className="transition hover:text-zinc-200"
+          >
+            support@insanerabbit.com
+          </a>
         </div>
       </div>
     </footer>
