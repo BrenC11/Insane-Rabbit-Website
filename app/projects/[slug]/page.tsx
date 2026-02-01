@@ -99,6 +99,15 @@ export default function ProjectPage({
                   recently added contacts on your iPhone, so you can remember
                   who someone is and follow up at the right time.
                 </p>
+                <p>
+                  Support email:{" "}
+                  <a
+                    href="mailto:hello@insanerabbit.com"
+                    className="text-zinc-100 transition hover:text-white"
+                  >
+                    hello@insanerabbit.com
+                  </a>
+                </p>
               </div>
 
               <div className="flex flex-col gap-2">
@@ -239,6 +248,32 @@ export default function ProjectPage({
                   </div>
                 </div>
               </div>
+            </div>
+          </details>
+        ) : null}
+        {project.slug === "dive-bar-finder" ? (
+          <details className="text-sm text-zinc-300">
+            <summary className="flex cursor-pointer items-center gap-2 text-zinc-400 transition hover:text-white">
+              Support
+              <span className="text-xs">v</span>
+            </summary>
+            <div className="mt-4 flex flex-col gap-4">
+              <p className="text-base font-semibold text-white">
+                Dive Bar Finder - Support
+              </p>
+              <p>
+                Need help with Dive Bar Finder or have feedback? Email us and
+                we&apos;ll get back to you as soon as possible.
+              </p>
+              <p>
+                Support email:{" "}
+                <a
+                  href="mailto:hello@insanerabbit.com"
+                  className="text-zinc-100 transition hover:text-white"
+                >
+                  hello@insanerabbit.com
+                </a>
+              </p>
             </div>
           </details>
         ) : null}

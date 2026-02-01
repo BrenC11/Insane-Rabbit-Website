@@ -13,6 +13,15 @@ export default function WhoWereYouSupportPage() {
           contacts on your iPhone, so you can remember who someone is and follow
           up at the right time.
         </p>
+        <p className="text-base text-zinc-300">
+          Support email:{" "}
+          <a
+            href="mailto:hello@insanerabbit.com"
+            className="text-zinc-100 transition hover:text-white"
+          >
+            hello@insanerabbit.com
+          </a>
+        </p>
       </div>
 
       <section className="flex flex-col gap-4">
