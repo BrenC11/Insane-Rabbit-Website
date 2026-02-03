@@ -14,7 +14,7 @@ export const projects: Project[] = [
     slug: "scriptforge",
     name: "ScriptForge",
     shortDescription:
-      "Script Forge is an AI-powered screenwriting platform that gives writers fast, professional-grade feedback to sharpen scripts, strengthen characters, and improve story craft.",
+      "Script Forge is a screenwriting platform that gives writers fast, professional-grade feedback to sharpen scripts, strengthen characters, and improve story craft.",
     description:
       "Script Forge is a comprehensive AI-driven screenwriting toolkit built for writers who want clear, actionable feedback-without the guesswork. It analyses screenplays at a professional level, breaking down story structure, character agency, dialogue, pacing, and theme to highlight both strengths and weaknesses. Writers can access everything from quick coverage reports to deep, multi-page evaluations packed with practical improvement notes. Script Forge also offers specialist tools like character agency analysis, first-10-page deep dives, and visual Poster Labs that turn scripts and ideas into striking pitch-ready artwork. Designed to support consistent growth, Script Forge rewards regular writing, helps writers track progress, and provides insights that feel closer to a seasoned script reader than a generic AI. Whether you're polishing a short, developing a feature, or preparing a script for producers, Script Forge is built to help you level up faster-and with confidence.",
     platform: "Web App",
