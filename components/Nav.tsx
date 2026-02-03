@@ -51,6 +51,12 @@ export default function Nav() {
           Insane Rabbit
         </Link>
         <nav className="flex items-center gap-6 text-sm text-zinc-200">
+          <Link
+            href="/about"
+            className="text-sm text-zinc-200 transition hover:text-white"
+          >
+            About
+          </Link>
           <div ref={menuRef} className="relative">
             <button
               ref={buttonRef}

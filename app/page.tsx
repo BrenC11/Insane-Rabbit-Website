@@ -17,16 +17,6 @@ export default function HomePage() {
       </section>
 
       <section className="border-t border-white/10 pt-10">
-        <h2 className="text-sm uppercase tracking-[0.3em] text-zinc-500">
-          About
-        </h2>
-        <p className="mt-4 max-w-3xl text-base text-zinc-300">
-          Insane Rabbit is an independent studio building software, iOS apps, and
-          web tools.
-        </p>
-      </section>
-
-      <section className="border-t border-white/10 pt-10">
         <div className="flex items-center justify-between">
           <h2 className="text-sm uppercase tracking-[0.3em] text-zinc-500">
             Projects
