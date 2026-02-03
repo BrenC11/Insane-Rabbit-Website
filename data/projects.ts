@@ -26,7 +26,7 @@ export const projects: Project[] = [
   },
   {
     slug: "timecam",
-    name: "TimeCam.ai",
+    name: "TimeCam",
     shortDescription:
       "TimeCam lets you take photos and videos and instantly see them reimagined in the past or the future. One tap. Different time.",
     description:
