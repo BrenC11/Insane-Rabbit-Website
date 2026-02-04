@@ -39,6 +39,20 @@ export const projects: Project[] = [
       "By using TimeCam.ai, you agree to the standard terms of the app. This placeholder will be replaced with the official terms."
   },
   {
+    slug: "sipocalypse",
+    name: "Sipocalypse",
+    shortDescription:
+      "Sipocalypse is a basic, fun drinking game generator that is free to use.",
+    description:
+      "Sipocalypse is a basic, fun drinking game generator built for quick laughs and easy party setup. Open the site, generate a game, and start playing right away. It is free to use and designed to keep things simple and entertaining.",
+    platform: "Web App",
+    websiteUrl: "https://sipocalypse.fun",
+    privacyPolicy:
+      "Sipocalypse respects user privacy and only collects data needed to operate the service. This placeholder will be replaced with the official policy.",
+    terms:
+      "By using Sipocalypse, you agree to the standard terms of service for the platform. This placeholder will be replaced with the official terms."
+  },
+  {
     slug: "dive-bar-finder",
     name: "Dive Bar Finder",
     shortDescription:
