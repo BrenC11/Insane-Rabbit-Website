@@ -53,6 +53,19 @@ export const projects: Project[] = [
       "By using Sipocalypse, you agree to the standard terms of service for the platform. This placeholder will be replaced with the official terms."
   },
   {
+    slug: "action",
+    name: "Action!",
+    shortDescription:
+      "Action! is an actor practice tool that lets you upload scripts and rehearse lines with real voice feedback.",
+    description:
+      "Action! is an iOS actor practice app built to make rehearsal fast and realistic. Upload a script, take your role, and run the scene out loud while the app performs the other characters with natural voice playback. Actors can practice timing, delivery, and responsiveness with real spoken cues instead of silent text, making line work feel closer to a live scene partner.",
+    platform: "iOS App",
+    privacyPolicy:
+      "Action! respects user privacy and only collects data needed to operate the app. This placeholder will be replaced with the official policy.",
+    terms:
+      "By using Action!, you agree to the standard terms of the app. This placeholder will be replaced with the official terms."
+  },
+  {
     slug: "dive-bar-finder",
     name: "Dive Bar Finder",
     shortDescription:
