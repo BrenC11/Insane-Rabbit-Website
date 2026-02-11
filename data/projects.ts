@@ -60,8 +60,184 @@ export const projects: Project[] = [
     description:
       "Action! is an iOS actor practice app built to make rehearsal fast and realistic. Upload a script, take your role, and run the scene out loud while the app performs the other characters with natural voice playback. Actors can practice timing, delivery, and responsiveness with real spoken cues instead of silent text, making line work feel closer to a live scene partner.",
     platform: "iOS App",
-    privacyPolicy:
-      "Action! respects user privacy and only collects data needed to operate the app. This placeholder will be replaced with the official policy.",
+    privacyPolicy: `PRIVACY POLICY FOR ACTION
+
+Effective Date: February 11, 2026
+Last updated: February 11, 2026
+
+Action ("Action," "we," "us," or "our") provides AI-powered voice generation features through our mobile application and related services (the "Service"). This Privacy Policy explains how we collect, use, disclose, and protect information when you use Action.
+
+If you do not agree with this Privacy Policy, do not use the Service.
+
+1. Who We Are
+
+Data Controller / Business:
+
+- Legal Entity: [Your Company Legal Name]
+- Address: [Business Address]
+- Email: support@insanerabbit.com
+- Support Contact: support@insanerabbit.com
+
+2. Scope
+
+This Privacy Policy applies to information processed through:
+
+- The Action iOS app
+- Related websites, customer support, and communications
+
+It does not apply to third-party services we do not control.
+
+3. Information We Collect
+
+Depending on how you use Action, we may collect:
+
+a. Information You Provide
+
+- Account details (for example, name, email, login credentials), if account creation is enabled
+- Text you submit for voice generation
+- Voice generation settings (for example, selected voice, style, speed, and language)
+- Content you choose to upload or save in the app
+- Messages sent to support
+
+b. Automatically Collected Information
+
+- Device and app data (for example, device model, OS version, app version, crash logs, diagnostics)
+- Usage data (for example, features used, session events, timestamp data)
+- IP address and approximate location derived from IP (for security and service operations)
+
+c. Purchase and Subscription Information
+
+- Subscription status, purchase tokens, and transaction metadata from Apple
+- We do not receive your full payment card number; payments are processed by Apple
+
+4. How We Use Information
+
+We use information to:
+
+- Provide and operate Action features
+- Generate voices from your inputs
+- Improve quality, reliability, and safety
+- Detect abuse, fraud, and security incidents
+- Provide customer support
+- Manage subscriptions and enforce terms
+- Comply with legal obligations
+
+We do not sell your personal information.
+
+5. OpenAI API Processing
+
+Action uses OpenAI's API to generate voices and related outputs.
+
+When you use AI features, we may send relevant data to OpenAI, including:
+
+- Text inputs you submit for generation
+- Generation parameters (for example, selected voice and model settings)
+- Limited technical metadata needed to process your request
+
+OpenAI processes this data on our behalf to provide the requested output. Per OpenAI's API policy, API customer content is not used to train OpenAI models by default unless a customer explicitly opts in. OpenAI may retain certain API data for limited periods for abuse monitoring and security as described in its documentation.
+
+See OpenAI:
+
+- https://openai.com/policies/how-your-data-is-used-to-improve-model-performance/
+- https://platform.openai.com/docs/guides/your-data
+
+6. Legal Bases for Processing (EEA/UK, where applicable)
+
+If you are in the EEA, UK, or similar jurisdictions, we process personal data under one or more legal bases:
+
+- Performance of a contract (to provide the Service)
+- Legitimate interests (service improvement, security, fraud prevention)
+- Consent (where required, such as optional marketing or specific permissions)
+- Legal obligation (compliance and recordkeeping)
+
+7. Sharing and Disclosure
+
+We may share information with:
+
+- Service providers (hosting, analytics, customer support, AI processing providers including OpenAI)
+- Apple, for billing, subscription validation, and App Store operations
+- Legal authorities when required by law or to protect rights, safety, and security
+- Successors in a merger, acquisition, or asset transfer (with appropriate safeguards)
+
+We require service providers to handle personal information under contractual confidentiality and security obligations.
+
+8. Data Retention
+
+We retain information only as long as needed for the purposes in this Policy, including:
+
+- Active account lifecycle
+- Service delivery and support
+- Legal, tax, accounting, and dispute resolution obligations
+- Security and fraud prevention
+
+You may request deletion of your personal data, subject to lawful exceptions.
+
+9. Your Rights and Choices
+
+Depending on your location, you may have rights to:
+
+- Access personal information
+- Correct inaccurate information
+- Delete personal information
+- Restrict or object to certain processing
+- Data portability
+- Withdraw consent (where processing is based on consent)
+- Appeal decisions or lodge complaints with regulators
+
+To exercise rights, contact: support@insanerabbit.com.
+
+California Privacy Rights (CCPA/CPRA)
+
+California residents may have rights to know, delete, correct, and limit certain uses of sensitive personal information. We do not sell or share personal information for cross-context behavioral advertising as those terms are defined under California law.
+
+10. Account Deletion
+
+If Action offers account creation, users can request deletion by:
+
+1. Using the in-app deletion flow at: [App path, e.g., Settings > Account > Delete Account], or
+2. Contacting us at support@insanerabbit.com.
+
+We will process verified deletion requests within the time required by applicable law. Certain data may be retained where legally required or necessary for security and fraud prevention.
+
+11. Children's Privacy
+
+Action is not directed to children under 13 (or older age where required by local law), and we do not knowingly collect personal information from children without required parental consent. If you believe a child has provided personal information, contact us and we will take appropriate steps.
+
+12. International Data Transfers
+
+Your information may be processed in countries other than your own. Where required, we use appropriate safeguards for cross-border transfers (for example, standard contractual clauses or equivalent mechanisms).
+
+13. Security
+
+We use reasonable administrative, technical, and organizational safeguards designed to protect personal information. No method of transmission or storage is completely secure, and we cannot guarantee absolute security.
+
+14. Third-Party Services
+
+Action may link to or integrate with third-party services. Their privacy practices are governed by their own policies. Key providers may include:
+
+- Apple (App Store, subscriptions)
+- OpenAI (AI voice generation APIs)
+- [Analytics Provider]
+- [Crash Reporting Provider]
+- [Cloud Hosting Provider]
+
+15. App Store-Specific Disclosures
+
+To comply with Apple's App Store requirements:
+
+- This Privacy Policy is publicly available at: [Public Privacy Policy URL]
+- We maintain App Store privacy "nutrition label" disclosures in App Store Connect consistent with actual data practices
+- Where required, we request device permissions in context and explain purpose before access
+
+16. Changes to This Privacy Policy
+
+We may update this Privacy Policy periodically. We will post updates with a revised "Last updated" date and provide additional notice where required by law.
+
+17. Contact Us
+
+For privacy questions, requests, or complaints:
+
+- Email: support@insanerabbit.com`,
     terms:
       "By using Action!, you agree to the standard terms of the app. This placeholder will be replaced with the official terms."
   },
