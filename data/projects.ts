@@ -25,6 +25,20 @@ export const projects: Project[] = [
       "By using ScriptForge, you agree to the standard terms of service for the platform. This placeholder will be replaced with the official terms."
   },
   {
+    slug: "instant-photo-shoot",
+    name: "Instant Photoshoot",
+    shortDescription:
+      "Instant Photoshoot is a B2B SaaS platform for real estate, hotels, and Airbnbs that instantly adds AI-generated people into empty spaces.",
+    description:
+      "Instant Photoshoot is a B2B SaaS platform built for real estate teams, hotels, and Airbnb hosts who need listing photos that feel alive. Upload an image of an empty room or space, and the platform instantly creates a polished photoshoot-style result by placing AI-generated people naturally into the scene. The system is designed to help businesses present spaces with realistic human presence, improve visual storytelling, and generate stronger marketing images without organizing a physical photoshoot.",
+    platform: "Web App",
+    websiteUrl: "https://instantphotoshoot.com",
+    privacyPolicy:
+      "Instant Photoshoot respects user privacy and only collects data needed to operate the service. This placeholder will be replaced with the official policy.",
+    terms:
+      "By using Instant Photoshoot, you agree to the standard terms of service for the platform. This placeholder will be replaced with the official terms."
+  },
+  {
     slug: "timecam",
     name: "TimeCam",
     shortDescription:
