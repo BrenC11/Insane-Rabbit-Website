@@ -249,6 +249,7 @@ For privacy questions, requests, or complaints:
     description:
       "Dive Bar Finder is an iOS location discovery app built for people who want the real places - dive bars with rock, metal, goth, and alternative vibes. Open the app, see what’s nearby, and explore bars around you without endless searching. It’s designed to make finding your next haunt quick, local, and effortless.",
     platform: "iOS App",
+    websiteUrl: "https://apps.apple.com/gb/app/dive-bar-finder/id6758267440",
     privacyPolicy: `PRIVACY POLICY
 Dive Bar Finder
 
