@@ -1,6 +1,13 @@
 import { list } from "@vercel/blob";
 import { getProjectBySlug, projects } from "@/data/projects";
-import { getBlobAccessFromUrl, toAdminBlobUrl } from "@/lib/admin/blob";
+import {
+  deleteAdminBlob,
+  getBlobAccessFromUrl,
+  readAdminBlobJson,
+  toAdminBlobDownloadUrl,
+  toAdminBlobUrl,
+  type BlobAccessMode
+} from "@/lib/admin/blob";
 
 export const DEFAULT_ADVERT_MODEL = "fal-ai/nano-banana-2";
 export const MAX_REFERENCE_IMAGE_COUNT = 14;
@@ -95,14 +102,44 @@ export type ResolutionOption = "1K" | "2K" | "4K";
 
 export type UploadedReference = {
   contentType: string;
+  downloadUrl?: string;
+  name?: string;
   pathname: string;
+  previewUrl?: string;
+  storageAccess?: BlobAccessMode;
+  storagePathname?: string;
   url: string;
 };
 
 export type AdvertLibraryItem = {
+  aspectRatio: AspectRatioOption;
+  downloadUrl: string;
+  includeProjectBrief: boolean;
+  manifestPathname?: string;
+  model: AdvertModelOption;
+  pathname: string;
+  prompt: string;
+  references: UploadedReference[];
+  projectName: string;
+  projectSlug: string;
+  resolution: ResolutionOption;
+  requestId?: string;
+  style: AdvertStyleOption;
+  textResponse?: string;
+  uploadedAt: string;
+  url: string;
+};
+
+export type ReferenceLibraryItem = {
+  contentType: string;
+  downloadUrl: string;
+  falUrl: string;
+  name: string;
   pathname: string;
   projectName: string;
   projectSlug: string;
+  storageAccess: BlobAccessMode;
+  storagePathname: string;
   uploadedAt: string;
   url: string;
 };
@@ -111,6 +148,34 @@ export type AdvertLibrarySection = {
   items: AdvertLibraryItem[];
   projectName: string;
   projectSlug: string;
+  references: ReferenceLibraryItem[];
+};
+
+type StoredAdvertManifest = {
+  aspectRatio: AspectRatioOption;
+  generatedAt: string;
+  includeProjectBrief: boolean;
+  model: AdvertModelOption;
+  outputs: UploadedReference[];
+  prompt: string;
+  projectName: string;
+  projectSlug: string;
+  references: UploadedReference[];
+  requestId?: string;
+  resolution: ResolutionOption;
+  style: AdvertStyleOption;
+  textResponse?: string;
+};
+
+type StoredReferenceManifest = {
+  contentType: string;
+  falUrl: string;
+  name: string;
+  projectName: string;
+  projectSlug: string;
+  storageAccess: BlobAccessMode;
+  storagePathname: string;
+  uploadedAt: string;
 };
 
 export function getAdvertModelConfig(model: AdvertModelOption) {
@@ -222,7 +287,7 @@ export function getFileExtension(
 
 export function createAdvertBlobPath(
   projectSlug: string,
-  kind: "generated" | "manifests" | "references",
+  kind: "generated" | "manifests" | "references" | "reference-manifests",
   filename: string
 ) {
   const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
@@ -230,6 +295,49 @@ export function createAdvertBlobPath(
   const safeFilename = sanitizeFileSegment(filename) || crypto.randomUUID();
 
   return `admin/adverts/${safeProject}/${kind}/${timestamp}-${safeFilename}`;
+}
+
+function resolveBlobPreviewUrl(
+  pathname: string,
+  blobsByPathname: Map<
+    string,
+    {
+      pathname: string;
+      url: string;
+    }
+  >
+) {
+  const blob = blobsByPathname.get(pathname);
+
+  if (!blob) {
+    return null;
+  }
+
+  return toAdminBlobUrl(pathname, getBlobAccessFromUrl(blob.url), blob.url);
+}
+
+function resolveBlobDownloadUrl(
+  pathname: string,
+  blobsByPathname: Map<
+    string,
+    {
+      downloadUrl: string;
+      pathname: string;
+      url: string;
+    }
+  >
+) {
+  const blob = blobsByPathname.get(pathname);
+
+  if (!blob) {
+    return null;
+  }
+
+  return toAdminBlobDownloadUrl(
+    pathname,
+    getBlobAccessFromUrl(blob.url),
+    blob.downloadUrl
+  );
 }
 
 export function buildAdvertPrompt({
@@ -280,54 +388,121 @@ export async function listAdvertLibrarySections() {
   }
 
   const { blobs } = await list({
-    limit: 200,
+    limit: 400,
     prefix: "admin/adverts/"
   });
-
   const sections = new Map<string, AdvertLibrarySection>();
+  const blobsByPathname = new Map(blobs.map((blob) => [blob.pathname, blob]));
 
   for (const project of projects) {
     sections.set(project.slug, {
       items: [],
       projectName: project.name,
-      projectSlug: project.slug
+      projectSlug: project.slug,
+      references: []
     });
   }
 
-  for (const blob of blobs) {
-    if (!blob.pathname.includes("/generated/")) {
+  const advertManifestBlobs = blobs.filter((blob) =>
+    blob.pathname.includes("/manifests/")
+  );
+  const referenceManifestBlobs = blobs.filter((blob) =>
+    blob.pathname.includes("/reference-manifests/")
+  );
+
+  const advertManifests = await Promise.all(
+    advertManifestBlobs.map(async (blob) => {
+      const manifest = await readAdminBlobJson<StoredAdvertManifest>(
+        blob.pathname,
+        getBlobAccessFromUrl(blob.url)
+      );
+
+      return manifest
+        ? {
+            blob,
+            manifest
+          }
+        : null;
+    })
+  );
+
+  for (const record of advertManifests) {
+    if (!record) {
       continue;
     }
 
-    const segments = blob.pathname.split("/");
-    const projectSlug = segments[2];
-
-    if (!projectSlug) {
-      continue;
-    }
-
-    const project = getProjectBySlug(projectSlug);
-
-    if (!project) {
-      continue;
-    }
-
-    const section = sections.get(projectSlug);
+    const { manifest } = record;
+    const section = sections.get(manifest.projectSlug);
 
     if (!section) {
       continue;
     }
 
-    section.items.push({
-      pathname: blob.pathname,
-      projectName: project.name,
-      projectSlug,
-      uploadedAt: new Date(blob.uploadedAt).toISOString(),
-      url: toAdminBlobUrl(
+    for (const output of manifest.outputs) {
+      const resolvedUrl =
+        resolveBlobPreviewUrl(output.pathname, blobsByPathname) ?? output.url;
+
+      section.items.push({
+        aspectRatio: manifest.aspectRatio,
+        downloadUrl:
+          resolveBlobDownloadUrl(output.pathname, blobsByPathname) ?? resolvedUrl,
+        includeProjectBrief: manifest.includeProjectBrief,
+        manifestPathname: record.blob.pathname,
+        model: manifest.model,
+        pathname: output.pathname,
+        prompt: manifest.prompt,
+        projectName: manifest.projectName,
+        projectSlug: manifest.projectSlug,
+        references: manifest.references,
+        requestId: manifest.requestId,
+        resolution: manifest.resolution,
+        style: manifest.style,
+        textResponse: manifest.textResponse,
+        uploadedAt: manifest.generatedAt,
+        url: resolvedUrl
+      });
+    }
+  }
+
+  const referenceManifests = await Promise.all(
+    referenceManifestBlobs.map(async (blob) => {
+      const manifest = await readAdminBlobJson<StoredReferenceManifest>(
         blob.pathname,
-        getBlobAccessFromUrl(blob.url),
-        blob.url
-      )
+        getBlobAccessFromUrl(blob.url)
+      );
+
+      return manifest;
+    })
+  );
+
+  for (const manifest of referenceManifests) {
+    if (!manifest) {
+      continue;
+    }
+
+    const section = sections.get(manifest.projectSlug);
+
+    if (!section) {
+      continue;
+    }
+
+    const resolvedUrl =
+      resolveBlobPreviewUrl(manifest.storagePathname, blobsByPathname) ?? "";
+
+    section.references.push({
+      contentType: manifest.contentType,
+      downloadUrl:
+        resolveBlobDownloadUrl(manifest.storagePathname, blobsByPathname) ??
+        resolvedUrl,
+      falUrl: manifest.falUrl,
+      name: manifest.name,
+      pathname: manifest.storagePathname,
+      projectName: manifest.projectName,
+      projectSlug: manifest.projectSlug,
+      storageAccess: manifest.storageAccess,
+      storagePathname: manifest.storagePathname,
+      uploadedAt: manifest.uploadedAt,
+      url: resolvedUrl
     });
   }
 
@@ -336,7 +511,24 @@ export async function listAdvertLibrarySections() {
       ...section,
       items: section.items.sort((left, right) =>
         right.uploadedAt.localeCompare(left.uploadedAt)
+      ),
+      references: section.references.sort((left, right) =>
+        right.uploadedAt.localeCompare(left.uploadedAt)
       )
     }))
-    .filter((section) => section.items.length > 0);
+    .filter((section) => section.items.length > 0 || section.references.length > 0);
+}
+
+export async function deleteAdvertAsset({
+  manifestPathname,
+  outputPathname
+}: {
+  manifestPathname?: string;
+  outputPathname: string;
+}) {
+  await deleteAdminBlob(outputPathname);
+
+  if (manifestPathname) {
+    await deleteAdminBlob(manifestPathname);
+  }
 }

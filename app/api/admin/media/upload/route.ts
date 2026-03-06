@@ -2,9 +2,12 @@ import { fal } from "@fal-ai/client";
 import { NextRequest, NextResponse } from "next/server";
 import { getProjectBySlug } from "@/data/projects";
 import { isAdminAuthenticated } from "@/lib/admin/auth";
+import { putAdminBlob, toAdminBlobUrl } from "@/lib/admin/blob";
 import {
+  createAdvertBlobPath,
   getFileAiApiKey,
   getFileExtension,
+  isBlobConfigured,
   isFileAiConfigured,
   MAX_REFERENCE_IMAGE_BYTES
 } from "@/lib/admin/adverts";
@@ -23,13 +26,21 @@ export async function PUT(request: NextRequest) {
     );
   }
 
+  if (!isBlobConfigured()) {
+    return NextResponse.json(
+      { error: "BLOB_READ_WRITE_TOKEN is missing." },
+      { status: 503 }
+    );
+  }
+
   const { searchParams } = new URL(request.url);
   const projectSlug = searchParams.get("projectSlug")?.trim() ?? "";
   const filename = searchParams.get("filename");
   const contentType = request.headers.get("content-type");
   const contentLength = Number(request.headers.get("content-length") ?? "0");
+  const project = getProjectBySlug(projectSlug);
 
-  if (!getProjectBySlug(projectSlug)) {
+  if (!project) {
     return NextResponse.json({ error: "Unknown project." }, { status: 400 });
   }
 
@@ -63,6 +74,8 @@ export async function PUT(request: NextRequest) {
     const safeFilename = filename?.trim()
       ? filename.trim()
       : `reference-image.${extension}`;
+    const baseFilename =
+      safeFilename.replace(/\.[^.]+$/, "") || `reference-image-${Date.now()}`;
 
     fal.config({
       credentials: getFileAiApiKey()
@@ -72,10 +85,52 @@ export async function PUT(request: NextRequest) {
       type: contentType
     });
     const url = await fal.storage.upload(file);
+    const storagePathname = `${createAdvertBlobPath(
+      projectSlug,
+      "references",
+      baseFilename
+    )}.${extension}`;
+    const storedReference = await putAdminBlob(
+      storagePathname,
+      Buffer.from(arrayBuffer),
+      contentType
+    );
+    const referenceManifestPath = `${createAdvertBlobPath(
+      projectSlug,
+      "reference-manifests",
+      baseFilename
+    )}.json`;
+
+    await putAdminBlob(
+      referenceManifestPath,
+      JSON.stringify(
+        {
+          contentType,
+          falUrl: url,
+          name: safeFilename,
+          projectName: project.name,
+          projectSlug,
+          storageAccess: storedReference.access,
+          storagePathname: storedReference.blob.pathname,
+          uploadedAt: new Date().toISOString()
+        },
+        null,
+        2
+      ),
+      "application/json"
+    );
 
     return NextResponse.json({
       contentType,
-      pathname: new URL(url).pathname,
+      name: safeFilename,
+      pathname: storedReference.blob.pathname,
+      previewUrl: toAdminBlobUrl(
+        storedReference.blob.pathname,
+        storedReference.access,
+        storedReference.blob.url
+      ),
+      storageAccess: storedReference.access,
+      storagePathname: storedReference.blob.pathname,
       url
     });
   } catch (error) {

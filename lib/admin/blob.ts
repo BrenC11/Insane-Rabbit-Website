@@ -1,4 +1,4 @@
-import { get, put, type PutBlobResult } from "@vercel/blob";
+import { del, get, put, type PutBlobResult } from "@vercel/blob";
 
 export type BlobAccessMode = "private" | "public";
 type BlobPutBody = Parameters<typeof put>[1];
@@ -31,6 +31,20 @@ export function toAdminBlobUrl(
   return `/api/admin/media/blob?pathname=${encodeURIComponent(
     pathname
   )}&access=${access}`;
+}
+
+export function toAdminBlobDownloadUrl(
+  pathname: string,
+  access: BlobAccessMode,
+  downloadUrl: string
+) {
+  if (access === "public") {
+    return downloadUrl;
+  }
+
+  return `/api/admin/media/blob?pathname=${encodeURIComponent(
+    pathname
+  )}&access=${access}&download=1`;
 }
 
 export async function putAdminBlob(
@@ -71,4 +85,34 @@ export async function getAdminBlob(pathname: string, access: BlobAccessMode) {
   return get(pathname, {
     access
   });
+}
+
+export async function deleteAdminBlob(pathname: string) {
+  return del(pathname);
+}
+
+export async function readAdminBlobText(
+  pathname: string,
+  access: BlobAccessMode
+) {
+  const result = await getAdminBlob(pathname, access);
+
+  if (!result || result.statusCode !== 200 || !result.stream) {
+    return null;
+  }
+
+  return new Response(result.stream).text();
+}
+
+export async function readAdminBlobJson<T>(
+  pathname: string,
+  access: BlobAccessMode
+) {
+  const text = await readAdminBlobText(pathname, access);
+
+  if (!text) {
+    return null;
+  }
+
+  return JSON.parse(text) as T;
 }

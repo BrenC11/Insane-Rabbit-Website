@@ -18,13 +18,6 @@ export const metadata = {
   title: "Admin"
 };
 
-function formatTimestamp(value: string) {
-  return new Intl.DateTimeFormat("en-GB", {
-    dateStyle: "medium",
-    timeStyle: "short"
-  }).format(new Date(value));
-}
-
 export default async function AdminPage() {
   if (!isAdminAuthenticatedOnServer()) {
     redirect("/admin/login");
@@ -61,70 +54,9 @@ export default async function AdminPage() {
           defaultModel={defaultModel}
           hasBlob={hasBlob}
           hasFileAi={hasFileAi}
+          librarySections={librarySections}
           projects={projects}
         />
-
-        <section className="rounded-[1.6rem] border border-white/10 bg-black/20 p-4">
-          <div className="mb-4 flex items-center justify-between">
-            <p className="text-sm text-zinc-300">Library</p>
-            <p className="text-xs text-zinc-500">By project</p>
-          </div>
-          {librarySections.length ? (
-            <div className="space-y-6">
-              {librarySections.map((section) => (
-                <div key={section.projectSlug} className="space-y-4">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-lg font-semibold text-white">
-                        {section.projectName}
-                      </p>
-                      <p className="text-sm text-zinc-500">
-                        {section.items.length} advert
-                        {section.items.length === 1 ? "" : "s"} saved
-                      </p>
-                    </div>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                    {section.items.map((item) => (
-                      <article
-                        key={item.pathname}
-                        className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-black/25 transition hover:border-white/20 hover:bg-black/35"
-                      >
-                        <img
-                          src={item.url}
-                          alt={`${item.projectName} advert`}
-                          className="aspect-[4/5] w-full object-cover"
-                        />
-                        <div className="space-y-3 p-4">
-                          <div>
-                            <p className="text-sm font-medium text-white">
-                              {item.projectName}
-                            </p>
-                            <p className="mt-1 text-xs text-zinc-500">
-                              {formatTimestamp(item.uploadedAt)}
-                            </p>
-                          </div>
-                          <a
-                            href={item.url}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="inline-flex rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-100 transition hover:border-white/30 hover:text-white"
-                          >
-                            Open image
-                          </a>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-[1.25rem] border border-dashed border-white/10 bg-black/20 px-6 py-10 text-sm leading-6 text-zinc-400">
-              No adverts saved yet. Generate one above and it will appear here.
-            </div>
-          )}
-        </section>
       </div>
     </div>
   );

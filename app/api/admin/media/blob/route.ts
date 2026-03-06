@@ -12,6 +12,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const pathname = searchParams.get("pathname")?.trim() ?? "";
   const access = (searchParams.get("access")?.trim() ?? "private") as BlobAccessMode;
+  const shouldDownload = searchParams.get("download") === "1";
 
   if (!pathname) {
     return NextResponse.json({ error: "Missing pathname." }, { status: 400 });
@@ -34,7 +35,9 @@ export async function GET(request: NextRequest) {
   return new NextResponse(result.stream, {
     headers: {
       "cache-control": result.blob.cacheControl || "private, max-age=0, must-revalidate",
-      "content-disposition": result.blob.contentDisposition || "inline",
+      "content-disposition": shouldDownload
+        ? `attachment; filename="${pathname.split("/").pop() || "file"}"`
+        : result.blob.contentDisposition || "inline",
       "content-type": result.blob.contentType || "application/octet-stream"
     }
   });

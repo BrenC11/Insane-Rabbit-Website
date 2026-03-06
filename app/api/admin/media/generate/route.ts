@@ -2,7 +2,11 @@ import { fal } from "@fal-ai/client";
 import { NextRequest, NextResponse } from "next/server";
 import { getProjectBySlug } from "@/data/projects";
 import { isAdminAuthenticated } from "@/lib/admin/auth";
-import { putAdminBlob, toAdminBlobUrl } from "@/lib/admin/blob";
+import {
+  putAdminBlob,
+  toAdminBlobDownloadUrl,
+  toAdminBlobUrl
+} from "@/lib/admin/blob";
 import {
   buildAdvertPrompt,
   createAdvertBlobPath,
@@ -226,6 +230,11 @@ export async function POST(request: NextRequest) {
 
         return {
           contentType: stored.blob.contentType,
+          downloadUrl: toAdminBlobDownloadUrl(
+            stored.blob.pathname,
+            stored.access,
+            stored.blob.downloadUrl
+          ),
           pathname: stored.blob.pathname,
           url: toAdminBlobUrl(stored.blob.pathname, stored.access, stored.blob.url)
         };
