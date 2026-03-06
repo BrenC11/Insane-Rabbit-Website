@@ -147,7 +147,7 @@ export default function AdvertMaker({
     }
 
     const response = await fetch(
-      `/api/admin/adverts/reference-upload?projectSlug=${encodeURIComponent(
+      `/api/admin/media/upload?projectSlug=${encodeURIComponent(
         projectSlug
       )}&filename=${encodeURIComponent(reference.file.name)}`,
       {
@@ -187,7 +187,7 @@ export default function AdvertMaker({
       const uploadedReferences = await Promise.all(
         references.map((reference) => uploadReference(reference))
       );
-      const response = await fetch("/api/admin/adverts/generate", {
+      const response = await fetch("/api/admin/media/generate", {
         body: JSON.stringify({
           aspectRatio,
           includeProjectBrief,
