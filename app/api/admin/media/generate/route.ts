@@ -1,8 +1,8 @@
 import { fal } from "@fal-ai/client";
-import { put } from "@vercel/blob";
 import { NextRequest, NextResponse } from "next/server";
 import { getProjectBySlug } from "@/data/projects";
 import { isAdminAuthenticated } from "@/lib/admin/auth";
+import { putAdminBlob, toAdminBlobUrl } from "@/lib/admin/blob";
 import {
   buildAdvertPrompt,
   createAdvertBlobPath,
@@ -218,16 +218,16 @@ export async function POST(request: NextRequest) {
           "generated",
           `${project.slug}-advert-${index + 1}`
         )}.${extension}`;
-        const blob = await put(pathname, generated.buffer, {
-          access: "public",
-          addRandomSuffix: false,
-          contentType: generated.contentType
-        });
+        const stored = await putAdminBlob(
+          pathname,
+          generated.buffer,
+          generated.contentType
+        );
 
         return {
-          contentType: blob.contentType,
-          pathname: blob.pathname,
-          url: blob.url
+          contentType: stored.blob.contentType,
+          pathname: stored.blob.pathname,
+          url: toAdminBlobUrl(stored.blob.pathname, stored.access, stored.blob.url)
         };
       })
     );
@@ -238,7 +238,7 @@ export async function POST(request: NextRequest) {
       `${project.slug}-advert-manifest`
     )}.json`;
 
-    await put(
+    await putAdminBlob(
       manifestPath,
       JSON.stringify(
         {
@@ -263,11 +263,7 @@ export async function POST(request: NextRequest) {
         null,
         2
       ),
-      {
-        access: "public",
-        addRandomSuffix: false,
-        contentType: "application/json"
-      }
+      "application/json"
     );
 
     return NextResponse.json({

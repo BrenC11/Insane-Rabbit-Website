@@ -1,5 +1,6 @@
 import { list } from "@vercel/blob";
 import { getProjectBySlug, projects } from "@/data/projects";
+import { getBlobAccessFromUrl, toAdminBlobUrl } from "@/lib/admin/blob";
 
 export const DEFAULT_ADVERT_MODEL = "fal-ai/nano-banana-2";
 export const MAX_REFERENCE_IMAGE_COUNT = 14;
@@ -322,7 +323,11 @@ export async function listAdvertLibrarySections() {
       projectName: project.name,
       projectSlug,
       uploadedAt: new Date(blob.uploadedAt).toISOString(),
-      url: blob.url
+      url: toAdminBlobUrl(
+        blob.pathname,
+        getBlobAccessFromUrl(blob.url),
+        blob.url
+      )
     });
   }
 
