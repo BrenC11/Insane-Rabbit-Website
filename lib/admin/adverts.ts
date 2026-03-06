@@ -228,11 +228,13 @@ export function createAdvertBlobPath(
 
 export function buildAdvertPrompt({
   aspectRatio,
+  includeProjectBrief,
   projectSlug,
   prompt,
   style
 }: {
   aspectRatio: AspectRatioOption;
+  includeProjectBrief: boolean;
   projectSlug: string;
   prompt: string;
   style: AdvertStyleOption;
@@ -245,18 +247,25 @@ export function buildAdvertPrompt({
   }
 
   const projectSummary = project.shortDescription ?? project.description;
-
-  return [
+  const promptParts = [
     `Create a polished ad creative for ${project.name}.`,
-    `Project context: ${projectSummary}`,
     `Platform: ${project.platform}.`,
     `Creative direction: ${styleOption.guidance}`,
-    `Target aspect ratio: ${aspectRatio}.`,
+    `Target aspect ratio: ${aspectRatio}.`
+  ];
+
+  if (includeProjectBrief) {
+    promptParts.push(`Project context: ${projectSummary}`);
+  }
+
+  promptParts.push(
     "Treat any uploaded images as reference material to preserve composition, brand cues, or product details when relevant.",
     "The result should feel campaign-ready, premium, and legible at a glance.",
     "Avoid watermarks, low-resolution artifacts, extra fingers, messy typography, and cluttered layouts.",
     `User brief: ${prompt.trim()}`
-  ].join("\n");
+  );
+
+  return promptParts.join("\n");
 }
 
 export async function listAdvertLibrarySections() {

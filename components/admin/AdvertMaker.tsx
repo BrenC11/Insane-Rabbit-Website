@@ -15,7 +15,6 @@ import {
   advertModelOptions,
   advertStyleOptions,
   aspectRatioOptions,
-  getAdvertModelLabel,
   MAX_REFERENCE_IMAGE_COUNT,
   type AdvertModelOption,
   type AdvertStyleOption,
@@ -58,6 +57,7 @@ export default function AdvertMaker({
   const [style, setStyle] = useState<AdvertStyleOption>("feature-splash");
   const [aspectRatio, setAspectRatio] = useState<AspectRatioOption>("4:5");
   const [resolution, setResolution] = useState<ResolutionOption>("2K");
+  const [includeProjectBrief, setIncludeProjectBrief] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [references, setReferences] = useState<ReferenceDraft[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -68,12 +68,6 @@ export default function AdvertMaker({
   const selectedProject = useMemo(
     () => projects.find((project) => project.slug === projectSlug) ?? projects[0],
     [projectSlug, projects]
-  );
-  const selectedModel = useMemo(
-    () =>
-      advertModelOptions.find((option) => option.value === model) ??
-      advertModelOptions[0],
-    [model]
   );
 
   useEffect(() => {
@@ -196,6 +190,7 @@ export default function AdvertMaker({
       const response = await fetch("/api/admin/adverts/generate", {
         body: JSON.stringify({
           aspectRatio,
+          includeProjectBrief,
           model,
           prompt,
           projectSlug,
@@ -232,361 +227,213 @@ export default function AdvertMaker({
   const generatorDisabled = !hasBlob || !hasFileAi;
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[minmax(0,1.45fr)_24rem]">
-      <section className="overflow-hidden rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] shadow-[0_30px_80px_rgba(0,0,0,0.35)] backdrop-blur">
-        <div className="border-b border-white/10 px-6 py-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div className="space-y-3">
-              <p className="text-[11px] uppercase tracking-[0.34em] text-amber-200/70">
-                Advert Maker
-              </p>
-              <div className="space-y-2">
-                <h2 className="text-3xl font-semibold tracking-[-0.03em] text-white">
-                  Slick prompt-to-ad generation for every project.
-                </h2>
-                <p className="max-w-2xl text-sm leading-6 text-zinc-300">
-                  Keep it fast: pick the product, set the framing, add a few
-                  references, and generate a campaign-ready image without leaving
-                  the Insane Rabbit site.
-                </p>
-              </div>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-3">
-              <div className="rounded-2xl border border-white/10 bg-black/25 px-4 py-3">
-                <p className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                  Project
-                </p>
-                <p className="mt-2 text-sm font-medium text-white">
-                  {selectedProject?.name}
-                </p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-black/25 px-4 py-3">
-                <p className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                  Model
-                </p>
-                <p className="mt-2 text-sm font-medium text-white">
-                  {getAdvertModelLabel(model)}
-                </p>
-              </div>
-              <div className="rounded-2xl border border-white/10 bg-black/25 px-4 py-3">
-                <p className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                  References
-                </p>
-                <p className="mt-2 text-sm font-medium text-white">
-                  {references.length} / {MAX_REFERENCE_IMAGE_COUNT}
-                </p>
-              </div>
-            </div>
+    <div className="grid gap-4 xl:grid-cols-[minmax(0,1.5fr)_22rem]">
+      <section className="rounded-[1.6rem] border border-white/10 bg-black/20 p-4">
+        <div className="grid gap-3 lg:grid-cols-5">
+          <select
+            value={projectSlug}
+            onChange={handleProjectChange}
+            className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/30"
+          >
+            {projects.map((project) => (
+              <option key={project.slug} value={project.slug}>
+                {project.name}
+              </option>
+            ))}
+          </select>
+          <select
+            value={model}
+            onChange={(event) => setModel(event.target.value as AdvertModelOption)}
+            className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/30"
+          >
+            {advertModelOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <select
+            value={style}
+            onChange={(event) => setStyle(event.target.value as AdvertStyleOption)}
+            className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/30"
+          >
+            {advertStyleOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <select
+            value={aspectRatio}
+            onChange={(event) =>
+              setAspectRatio(event.target.value as AspectRatioOption)
+            }
+            className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/30"
+          >
+            {aspectRatioOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label} ({option.value})
+              </option>
+            ))}
+          </select>
+          <select
+            value={resolution}
+            onChange={(event) =>
+              setResolution(event.target.value as ResolutionOption)
+            }
+            className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-white/30"
+          >
+            <option value="1K">1K</option>
+            <option value="2K">2K</option>
+            <option value="4K">4K</option>
+          </select>
+        </div>
+
+        <div className="mt-3 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <label className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-zinc-200">
+            <input
+              type="checkbox"
+              checked={includeProjectBrief}
+              onChange={(event) => setIncludeProjectBrief(event.target.checked)}
+              className="h-4 w-4 rounded border-white/20 bg-black/40 accent-white"
+            />
+            Add project brief to prompt
+          </label>
+
+          <div className="flex items-center gap-2 text-xs text-zinc-500">
+            <span
+              className={`h-2.5 w-2.5 rounded-full ${
+                hasFileAi ? "bg-emerald-400" : "bg-red-400"
+              }`}
+            />
+            <span>fal</span>
+            <span
+              className={`ml-2 h-2.5 w-2.5 rounded-full ${
+                hasBlob ? "bg-emerald-400" : "bg-red-400"
+              }`}
+            />
+            <span>storage</span>
           </div>
         </div>
 
-        <div className="space-y-6 p-6">
-          <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            <label className="flex flex-col gap-2 rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
-              <span className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                Model
-              </span>
-              <select
-                value={model}
-                onChange={(event) =>
-                  setModel(event.target.value as AdvertModelOption)
-                }
-                className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-300/50"
-              >
-                {advertModelOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              <p className="text-xs leading-5 text-zinc-400">
-                {selectedModel.description}
-              </p>
-            </label>
+        <div className="mt-4 rounded-[1.25rem] border border-white/10 bg-black/30 px-4 py-3">
+          <p className="text-xs uppercase tracking-[0.22em] text-zinc-500">
+            Project brief
+          </p>
+          <p className="mt-2 text-sm leading-6 text-zinc-300">
+            {selectedProject?.shortDescription ?? selectedProject?.description}
+          </p>
+        </div>
 
-            <label className="flex flex-col gap-2 rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
-              <span className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                Project
-              </span>
-              <select
-                value={projectSlug}
-                onChange={handleProjectChange}
-                className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-300/50"
-              >
-                {projects.map((project) => (
-                  <option key={project.slug} value={project.slug}>
-                    {project.name}
-                  </option>
-                ))}
-              </select>
-              <p className="text-xs leading-5 text-zinc-400">
-                Uses the same live project metadata already on the site.
-              </p>
-            </label>
+        <textarea
+          value={prompt}
+          onChange={(event) => setPrompt(event.target.value)}
+          rows={8}
+          placeholder="Prompt"
+          className="mt-4 min-h-[220px] w-full rounded-[1.25rem] border border-white/10 bg-black/30 px-4 py-4 text-sm leading-7 text-white outline-none transition placeholder:text-zinc-600 focus:border-white/30"
+        />
 
-            <label className="flex flex-col gap-2 rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
-              <span className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                Advert angle
-              </span>
-              <select
-                value={style}
-                onChange={(event) => setStyle(event.target.value as AdvertStyleOption)}
-                className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-300/50"
-              >
-                {advertStyleOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              <p className="text-xs leading-5 text-zinc-400">
-                Keeps the brief focused instead of starting from scratch.
-              </p>
-            </label>
-
-            <label className="flex flex-col gap-2 rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
-              <span className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                Aspect ratio
-              </span>
-              <select
-                value={aspectRatio}
-                onChange={(event) =>
-                  setAspectRatio(event.target.value as AspectRatioOption)
-                }
-                className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-300/50"
-              >
-                {aspectRatioOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label} ({option.value})
-                  </option>
-                ))}
-              </select>
-              <p className="text-xs leading-5 text-zinc-400">
-                Choose the shape for feeds, stories, posters, or web placements.
-              </p>
-            </label>
-
-            <label className="flex flex-col gap-2 rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
-              <span className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                Resolution
-              </span>
-              <select
-                value={resolution}
-                onChange={(event) =>
-                  setResolution(event.target.value as ResolutionOption)
-                }
-                className="rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-white outline-none transition focus:border-amber-300/50"
-              >
-                <option value="1K">1K</option>
-                <option value="2K">2K</option>
-                <option value="4K">4K</option>
-              </select>
-              <p className="text-xs leading-5 text-zinc-400">
-                2K is the sensible default. Use 4K for final campaign work.
-              </p>
-            </label>
-
-            <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-4">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                Product brief
-              </p>
-              <p className="mt-3 text-base font-medium text-white">
-                {selectedProject?.name}
-              </p>
-              <p className="mt-2 text-sm leading-6 text-zinc-300">
-                {selectedProject?.shortDescription ?? selectedProject?.description}
-              </p>
-            </div>
-          </div>
-
-          <label className="flex flex-col gap-3 rounded-[1.7rem] border border-white/10 bg-black/20 p-5">
-            <div className="flex items-center justify-between gap-4">
-              <span className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                Prompt
-              </span>
-              <span className="text-xs text-zinc-500">{prompt.length} characters</span>
-            </div>
-            <textarea
-              value={prompt}
-              onChange={(event) => setPrompt(event.target.value)}
-              rows={8}
-              placeholder={`Example: Create a premium ${selectedProject?.name} advert with bold headline space, crisp UI framing, cinematic lighting, and a product-first composition that looks native to a paid social campaign.`}
-              className="min-h-[180px] rounded-[1.2rem] border border-white/10 bg-black/40 px-4 py-4 text-sm leading-7 text-white outline-none transition placeholder:text-zinc-500 focus:border-amber-300/50"
-            />
-          </label>
-
-          <div className="rounded-[1.7rem] border border-dashed border-white/15 bg-black/20 p-5">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-              <div className="space-y-2">
-                <p className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                  Reference images
-                </p>
-                <p className="max-w-xl text-sm leading-6 text-zinc-300">
-                  Add screenshots, product shots, or campaign references only
-                  when they genuinely help anchor composition and brand details.
-                </p>
-              </div>
-              <label className="inline-flex cursor-pointer items-center justify-center rounded-full border border-amber-300/30 bg-amber-300/10 px-5 py-3 text-sm font-medium text-amber-100 transition hover:border-amber-300/60 hover:bg-amber-300/15">
-                Add references
-                <input
-                  type="file"
-                  accept="image/png,image/jpeg,image/webp,image/heic,image/heif"
-                  multiple
-                  className="hidden"
-                  onChange={handleReferenceSelection}
-                  disabled={references.length >= MAX_REFERENCE_IMAGE_COUNT}
-                />
-              </label>
-            </div>
-
-            {references.length ? (
-              <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-                {references.map((reference) => (
-                  <div
-                    key={reference.id}
-                    className="overflow-hidden rounded-[1.35rem] border border-white/10 bg-black/30"
-                  >
-                    <img
-                      src={reference.previewUrl}
-                      alt={reference.file.name}
-                      className="aspect-[4/3] w-full object-cover"
-                    />
-                    <div className="flex items-center justify-between gap-3 p-3">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm text-white">
-                          {reference.file.name}
-                        </p>
-                        <p className="text-xs text-zinc-500">
-                          {(reference.file.size / 1024 / 1024).toFixed(2)} MB
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => removeReference(reference.id)}
-                        className="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-300 transition hover:border-white/30 hover:text-white"
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="mt-5 rounded-[1.3rem] border border-white/10 bg-black/20 px-4 py-6 text-sm text-zinc-500">
-                No references loaded yet.
-              </div>
-            )}
-          </div>
-
-          {error ? (
-            <p className="rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
-              {error}
+        <div className="mt-4 rounded-[1.25rem] border border-dashed border-white/10 bg-black/20 p-4">
+          <div className="flex items-center justify-between gap-3">
+            <p className="text-sm text-zinc-300">
+              References {references.length ? `(${references.length})` : ""}
             </p>
-          ) : null}
-
-          <div className="flex flex-col gap-4 rounded-[1.6rem] border border-white/10 bg-black/30 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-1">
-              <p className="text-[11px] uppercase tracking-[0.24em] text-zinc-500">
-                Generate
-              </p>
-              <p className="text-sm text-zinc-300">
-                {isRefreshing
-                  ? "Refreshing the saved library."
-                  : "One clean prompt. One fast advert."}
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={handleGenerate}
-              disabled={generatorDisabled || isGenerating || !prompt.trim()}
-              className="inline-flex items-center justify-center rounded-full bg-amber-300 px-6 py-3 text-sm font-semibold text-black transition hover:bg-amber-200 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-300"
-            >
-              {isGenerating ? "Generating advert..." : "Generate advert"}
-            </button>
+            <label className="inline-flex cursor-pointer items-center rounded-full border border-white/10 bg-black/30 px-4 py-2 text-sm text-white transition hover:border-white/30">
+              Add images
+              <input
+                type="file"
+                accept="image/png,image/jpeg,image/webp,image/heic,image/heif"
+                multiple
+                className="hidden"
+                onChange={handleReferenceSelection}
+                disabled={references.length >= MAX_REFERENCE_IMAGE_COUNT}
+              />
+            </label>
           </div>
+
+          {references.length ? (
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              {references.map((reference) => (
+                <div
+                  key={reference.id}
+                  className="overflow-hidden rounded-[1rem] border border-white/10 bg-black/30"
+                >
+                  <img
+                    src={reference.previewUrl}
+                    alt={reference.file.name}
+                    className="aspect-square w-full object-cover"
+                  />
+                  <div className="flex items-center justify-between gap-2 p-2">
+                    <p className="truncate text-xs text-zinc-300">
+                      {reference.file.name}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => removeReference(reference.id)}
+                      className="rounded-full border border-white/10 px-2 py-1 text-[11px] text-zinc-300 transition hover:border-white/30"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+
+        {error ? (
+          <p className="mt-4 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+            {error}
+          </p>
+        ) : null}
+
+        <div className="mt-4 flex items-center justify-between gap-3">
+          <div className="text-xs text-zinc-500">
+            {isRefreshing ? "Refreshing library..." : prompt.length ? `${prompt.length} chars` : ""}
+          </div>
+          <button
+            type="button"
+            onClick={handleGenerate}
+            disabled={generatorDisabled || isGenerating || !prompt.trim()}
+            className="rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black transition hover:bg-zinc-200 disabled:cursor-not-allowed disabled:bg-zinc-700 disabled:text-zinc-300"
+          >
+            {isGenerating ? "Generating..." : "Generate"}
+          </button>
         </div>
       </section>
 
-      <aside className="flex flex-col gap-6">
-        <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-5">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">
-            Studio status
-          </p>
-          <div className="mt-5 grid gap-3">
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-300">
-              <span>Blob storage</span>
-              <span className={hasBlob ? "text-emerald-300" : "text-red-300"}>
-                {hasBlob ? "Ready" : "Missing token"}
-              </span>
-            </div>
-            <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-sm text-zinc-300">
-              <span>fal.ai key</span>
-              <span className={hasFileAi ? "text-emerald-300" : "text-red-300"}>
-                {hasFileAi ? "Ready" : "Missing key"}
-              </span>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3">
-              <p className="text-[11px] uppercase tracking-[0.22em] text-zinc-500">
-                Active model
-              </p>
-              <p className="mt-2 text-sm text-white">
-                {getAdvertModelLabel(model)}
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-5">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">
-            Latest output
-          </p>
+      <aside className="space-y-4">
+        <section className="rounded-[1.6rem] border border-white/10 bg-black/20 p-4">
           {latestResult?.outputs?.[0] ? (
-            <div className="mt-5 space-y-4">
-              <div className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/30">
+            <div className="space-y-3">
+              <div className="overflow-hidden rounded-[1.1rem] border border-white/10 bg-black/30">
                 <img
                   src={latestResult.outputs[0].url}
                   alt="Latest generated advert"
                   className="aspect-[4/5] w-full object-cover"
                 />
               </div>
-              <div className="space-y-3 text-sm text-zinc-300">
-                {latestResult.requestId ? (
-                  <p className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 text-xs uppercase tracking-[0.22em] text-zinc-400">
-                    Request ID: {latestResult.requestId}
-                  </p>
-                ) : null}
-                {latestResult.textResponse ? (
-                  <p className="rounded-2xl border border-white/10 bg-black/20 px-4 py-3 leading-6">
-                    {latestResult.textResponse}
-                  </p>
-                ) : null}
+              <div className="flex gap-2">
                 <a
                   href={latestResult.outputs[0].url}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-100 transition hover:border-white/30 hover:text-white"
+                  className="inline-flex rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-100 transition hover:border-white/30"
                 >
-                  Open full image
+                  Open
                 </a>
+                {latestResult.requestId ? (
+                  <div className="inline-flex rounded-full border border-white/10 px-4 py-2 text-xs text-zinc-500">
+                    {latestResult.requestId}
+                  </div>
+                ) : null}
               </div>
             </div>
           ) : (
-            <div className="mt-5 rounded-[1.4rem] border border-dashed border-white/10 bg-black/20 px-4 py-8 text-sm leading-6 text-zinc-400">
-              Your next generated advert will appear here.
+            <div className="rounded-[1.1rem] border border-dashed border-white/10 bg-black/20 px-4 py-12 text-center text-sm text-zinc-500">
+              No output yet
             </div>
           )}
-        </section>
-
-        <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-5">
-          <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">
-            Workflow
-          </p>
-          <div className="mt-4 space-y-3 text-sm leading-6 text-zinc-300">
-            <p>1. Pick the product and model.</p>
-            <p>2. Add a concise campaign brief.</p>
-            <p>3. Drop in references only when they help.</p>
-            <p>4. Generate, review, and keep the winners.</p>
-          </div>
         </section>
       </aside>
     </div>

@@ -39,41 +39,23 @@ export default async function AdminPage() {
     <div className="relative isolate overflow-hidden">
       <div className="absolute inset-0 -z-20 bg-[#090909]" />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(251,191,36,0.14),_transparent_32%),radial-gradient(circle_at_78%_18%,_rgba(255,255,255,0.08),_transparent_22%),linear-gradient(180deg,_rgba(255,255,255,0.02),_transparent_45%)]" />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-12">
-        <section className="flex flex-col gap-6 rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-7 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl space-y-4">
-              <p className="text-[11px] uppercase tracking-[0.34em] text-amber-200/70">
-                Admin Studio
-              </p>
-              <h1 className="text-4xl font-semibold tracking-[-0.03em] text-white sm:text-5xl">
-                A minimal internal studio for advert creation.
-              </h1>
-              <p className="max-w-2xl text-base leading-7 text-zinc-300">
-                Start with the advert maker, keep the brief tight, and save the
-                outputs back into a clean project library. The goal is speed,
-                clarity, and visuals that still feel premium.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="/"
-                className="rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-200 transition hover:border-white/30 hover:text-white"
-              >
-                Back to site
-              </Link>
-              <form action="/api/admin/logout" method="post">
-                <button
-                  type="submit"
-                  className="rounded-full bg-white px-4 py-2 text-sm font-medium text-black transition hover:bg-zinc-200"
-                >
-                  Sign out
-                </button>
-              </form>
-            </div>
-          </div>
-        </section>
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-4 px-6 py-8">
+        <div className="flex items-center justify-between gap-3">
+          <Link
+            href="/"
+            className="rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-200 transition hover:border-white/30 hover:text-white"
+          >
+            Back
+          </Link>
+          <form action="/api/admin/logout" method="post">
+            <button
+              type="submit"
+              className="rounded-full border border-white/10 px-4 py-2 text-sm text-zinc-200 transition hover:border-white/30 hover:text-white"
+            >
+              Sign out
+            </button>
+          </form>
+        </div>
 
         <AdvertMaker
           defaultModel={defaultModel}
@@ -82,29 +64,18 @@ export default async function AdminPage() {
           projects={projects}
         />
 
-        <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">
-                Generated library
-              </p>
-              <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-white">
-                Saved adverts by project.
-              </h2>
-            </div>
-            <p className="max-w-xl text-sm leading-6 text-zinc-400">
-              Outputs are grouped by project slug using Blob paths under{" "}
-              <code>admin/adverts/&lt;project&gt;/generated</code>.
-            </p>
+        <section className="rounded-[1.6rem] border border-white/10 bg-black/20 p-4">
+          <div className="mb-4 flex items-center justify-between">
+            <p className="text-sm text-zinc-300">Library</p>
+            <p className="text-xs text-zinc-500">By project</p>
           </div>
-
           {librarySections.length ? (
-            <div className="mt-8 space-y-10">
+            <div className="space-y-6">
               {librarySections.map((section) => (
                 <div key={section.projectSlug} className="space-y-4">
                   <div className="flex items-center justify-between gap-4">
                     <div>
-                      <p className="text-xl font-semibold text-white">
+                      <p className="text-lg font-semibold text-white">
                         {section.projectName}
                       </p>
                       <p className="text-sm text-zinc-500">
@@ -117,7 +88,7 @@ export default async function AdminPage() {
                     {section.items.map((item) => (
                       <article
                         key={item.pathname}
-                        className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/25 transition hover:border-white/20 hover:bg-black/35"
+                        className="overflow-hidden rounded-[1.25rem] border border-white/10 bg-black/25 transition hover:border-white/20 hover:bg-black/35"
                       >
                         <img
                           src={item.url}
@@ -149,7 +120,7 @@ export default async function AdminPage() {
               ))}
             </div>
           ) : (
-            <div className="mt-8 rounded-[1.75rem] border border-dashed border-white/10 bg-black/20 px-6 py-10 text-sm leading-6 text-zinc-400">
+            <div className="rounded-[1.25rem] border border-dashed border-white/10 bg-black/20 px-6 py-10 text-sm leading-6 text-zinc-400">
               No adverts saved yet. Generate one above and it will appear here.
             </div>
           )}

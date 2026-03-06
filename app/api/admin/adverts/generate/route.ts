@@ -27,6 +27,7 @@ export const runtime = "nodejs";
 
 type GenerateAdvertBody = {
   aspectRatio: AspectRatioOption;
+  includeProjectBrief?: boolean;
   model: AdvertModelOption;
   prompt: string;
   projectSlug: string;
@@ -182,6 +183,7 @@ export async function POST(request: NextRequest) {
   try {
     const promptText = buildAdvertPrompt({
       aspectRatio: body.aspectRatio,
+      includeProjectBrief: Boolean(body.includeProjectBrief),
       projectSlug: body.projectSlug,
       prompt,
       style: body.style
@@ -246,6 +248,7 @@ export async function POST(request: NextRequest) {
           model: result.model,
           modelLabel: getAdvertModelLabel(result.model),
           outputs,
+          includeProjectBrief: Boolean(body.includeProjectBrief),
           prompt,
           promptText,
           projectName: project.name,
