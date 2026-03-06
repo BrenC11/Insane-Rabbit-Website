@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
   if (!isFileAiConfigured()) {
     return NextResponse.json(
       {
-        error: "Set FAL_API_KEY before generating adverts with Nano Banana."
+        error: "Set FAL_KEY before generating adverts with Nano Banana."
       },
       { status: 503 }
     );

@@ -37,7 +37,7 @@ export default function AdminLoginPage() {
               <div className="max-w-lg rounded-[1.75rem] border border-amber-300/25 bg-amber-300/10 px-5 py-4 text-sm leading-6 text-amber-50">
                 Set <code>ADMIN_PASSWORD</code> in your environment before using
                 the admin area. The image generator also expects{" "}
-                <code>BLOB_READ_WRITE_TOKEN</code> and <code>FAL_API_KEY</code>.
+                <code>BLOB_READ_WRITE_TOKEN</code> and <code>FAL_KEY</code>.
               </div>
             ) : null}
           </section>

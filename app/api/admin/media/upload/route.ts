@@ -1,11 +1,11 @@
-import { put } from "@vercel/blob";
+import { fal } from "@fal-ai/client";
 import { NextRequest, NextResponse } from "next/server";
 import { getProjectBySlug } from "@/data/projects";
 import { isAdminAuthenticated } from "@/lib/admin/auth";
 import {
-  createAdvertBlobPath,
+  getFileAiApiKey,
   getFileExtension,
-  isBlobConfigured,
+  isFileAiConfigured,
   MAX_REFERENCE_IMAGE_BYTES
 } from "@/lib/admin/adverts";
 
@@ -16,9 +16,9 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: "Unauthorized." }, { status: 401 });
   }
 
-  if (!isBlobConfigured()) {
+  if (!isFileAiConfigured()) {
     return NextResponse.json(
-      { error: "BLOB_READ_WRITE_TOKEN is missing." },
+      { error: "Set FAL_KEY before uploading reference images." },
       { status: 503 }
     );
   }
@@ -49,25 +49,44 @@ export async function PUT(request: NextRequest) {
     );
   }
 
-  if (!request.body) {
-    return NextResponse.json({ error: "Missing upload body." }, { status: 400 });
+  try {
+    const arrayBuffer = await request.arrayBuffer();
+
+    if (!arrayBuffer.byteLength) {
+      return NextResponse.json(
+        { error: "Missing upload body." },
+        { status: 400 }
+      );
+    }
+
+    const extension = getFileExtension(filename, contentType);
+    const safeFilename = filename?.trim()
+      ? filename.trim()
+      : `reference-image.${extension}`;
+
+    fal.config({
+      credentials: getFileAiApiKey()
+    });
+
+    const file = new File([arrayBuffer], safeFilename, {
+      type: contentType
+    });
+    const url = await fal.storage.upload(file);
+
+    return NextResponse.json({
+      contentType,
+      pathname: new URL(url).pathname,
+      url
+    });
+  } catch (error) {
+    return NextResponse.json(
+      {
+        error:
+          error instanceof Error
+            ? error.message
+            : "Reference upload failed."
+      },
+      { status: 500 }
+    );
   }
-
-  const extension = getFileExtension(filename, contentType);
-  const pathname = `${createAdvertBlobPath(
-    projectSlug,
-    "references",
-    filename ?? "reference-image"
-  )}.${extension}`;
-  const blob = await put(pathname, request.body, {
-    access: "public",
-    addRandomSuffix: false,
-    contentType
-  });
-
-  return NextResponse.json({
-    contentType: blob.contentType,
-    pathname: blob.pathname,
-    url: blob.url
-  });
 }
