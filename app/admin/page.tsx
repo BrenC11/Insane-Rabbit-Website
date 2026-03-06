@@ -38,21 +38,21 @@ export default async function AdminPage() {
   return (
     <div className="relative isolate overflow-hidden">
       <div className="absolute inset-0 -z-20 bg-[#090909]" />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(251,191,36,0.16),_transparent_34%),radial-gradient(circle_at_75%_20%,_rgba(255,255,255,0.08),_transparent_24%),linear-gradient(180deg,_rgba(255,255,255,0.02),_transparent_45%)]" />
-      <div className="mx-auto flex w-full max-w-6xl flex-col gap-12 px-6 py-14">
-        <section className="flex flex-col gap-6 rounded-[2.25rem] border border-white/10 bg-black/20 p-7 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,_rgba(251,191,36,0.14),_transparent_32%),radial-gradient(circle_at_78%_18%,_rgba(255,255,255,0.08),_transparent_22%),linear-gradient(180deg,_rgba(255,255,255,0.02),_transparent_45%)]" />
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-12">
+        <section className="flex flex-col gap-6 rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-7 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-3xl space-y-4">
-              <p className="text-xs uppercase tracking-[0.34em] text-amber-200/70">
+              <p className="text-[11px] uppercase tracking-[0.34em] text-amber-200/70">
                 Admin Studio
               </p>
-              <h1 className="text-5xl font-semibold leading-none text-white">
-                Campaign image generation for every Insane Rabbit product.
+              <h1 className="text-4xl font-semibold tracking-[-0.03em] text-white sm:text-5xl">
+                A minimal internal studio for advert creation.
               </h1>
-              <p className="text-base leading-7 text-zinc-300">
-                Start with the advert maker: select a project, build the creative
-                brief, attach references, and store each generated asset back into
-                a tidy project library.
+              <p className="max-w-2xl text-base leading-7 text-zinc-300">
+                Start with the advert maker, keep the brief tight, and save the
+                outputs back into a clean project library. The goal is speed,
+                clarity, and visuals that still feel premium.
               </p>
             </div>
 
@@ -82,14 +82,14 @@ export default async function AdminPage() {
           projects={projects}
         />
 
-        <section className="rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur">
+        <section className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] p-6 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-zinc-500">
+              <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500">
                 Generated library
               </p>
-              <h2 className="mt-2 text-3xl font-semibold text-white">
-                Saved adverts by project
+              <h2 className="mt-2 text-3xl font-semibold tracking-[-0.03em] text-white">
+                Saved adverts by project.
               </h2>
             </div>
             <p className="max-w-xl text-sm leading-6 text-zinc-400">
@@ -117,7 +117,7 @@ export default async function AdminPage() {
                     {section.items.map((item) => (
                       <article
                         key={item.pathname}
-                        className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/25"
+                        className="overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/25 transition hover:border-white/20 hover:bg-black/35"
                       >
                         <img
                           src={item.url}
