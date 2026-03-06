@@ -48,13 +48,13 @@ export default function WhoWereYouSupportPage() {
 
       <section className="flex flex-col gap-4">
         <h2 className="text-xl font-semibold text-white">
-          How "Recently Added" Works
+          How &quot;Recently Added&quot; Works
         </h2>
         <p className="text-base text-zinc-300">
-          iOS does not provide a perfect "date added" for every contact. Who
-          Were You? uses the best available on-device signals to estimate when a
-          contact was added and then improves accuracy over time as the app
-          runs.
+          iOS does not provide a perfect &quot;date added&quot; for every
+          contact. Who Were You? uses the best available on-device signals to
+          estimate when a contact was added and then improves accuracy over time
+          as the app runs.
         </p>
         <p className="text-base text-zinc-300">
           Important: The most accurate tracking happens from the point you
@@ -124,8 +124,9 @@ export default function WhoWereYouSupportPage() {
             <ul className="mt-2 list-disc space-y-2 pl-5">
               <li>Recently-added tracking improves over time.</li>
               <li>
-                Go to Settings in the app -&gt; Reset "Recently Added" Tracking
-                (this clears local history and starts fresh).
+                Go to Settings in the app -&gt; Reset &quot;Recently
+                Added&quot; Tracking (this clears local history and starts
+                fresh).
               </li>
             </ul>
           </div>

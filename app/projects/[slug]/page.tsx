@@ -80,7 +80,7 @@ export default function ProjectPage({
             rel="noreferrer"
             className="text-sm text-zinc-300 transition hover:text-white"
           >
-            Visit website
+            {project.slug === "dive-bar-finder" ? "Download app" : "Visit website"}
           </a>
         ) : null}
         {project.slug === "who-were-you" ? (

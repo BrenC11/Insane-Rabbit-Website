@@ -29,7 +29,11 @@ export default function HomePage() {
           {projects.map((project) => (
             <Link
               key={project.slug}
-              href={`/projects/${project.slug}`}
+              href={
+                project.slug === "dive-bar-finder"
+                  ? "/dive-bar-finder"
+                  : `/projects/${project.slug}`
+              }
               className="group rounded-lg border border-white/10 bg-white/5 p-5 transition hover:border-white/20 hover:bg-white/10"
             >
               <div className="flex items-center justify-between">
