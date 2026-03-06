@@ -30,8 +30,8 @@ export default function HomePage() {
             <Link
               key={project.slug}
               href={
-                project.slug === "dive-bar-finder"
-                  ? "/dive-bar-finder"
+                project.slug === "dive-bar-finder" || project.slug === "timecam"
+                  ? `/${project.slug}`
                   : `/projects/${project.slug}`
               }
               className="group rounded-lg border border-white/10 bg-white/5 p-5 transition hover:border-white/20 hover:bg-white/10"

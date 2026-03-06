@@ -46,7 +46,7 @@ export const projects: Project[] = [
     description:
       "TimeCam is a creative camera app that lets you capture the present and instantly transform it into another time period - past or future. Take a photo or video, choose a time era, and TimeCam reimagines the scene as if it were captured years ago... or decades ahead. Powered by advanced AI, TimeCam preserves the original composition of your image while changing the world around it - architecture, atmosphere, lighting, and subtle details evolve to match the selected era. From nostalgic past aesthetics to speculative futures, every result feels cinematic and grounded in the original moment. TimeCam is built for creators, storytellers, and anyone curious about how the same moment might look across time. Whether you're experimenting, world-building, or just having fun, TimeCam turns everyday photos into time-travel snapshots. Capture now. See then. Explore what's next.",
     platform: "iOS App",
-    websiteUrl: "https://www.timecam.ai",
+    websiteUrl: "https://apps.apple.com/gb/app/timecam-history-camera/id6757313708",
     privacyPolicy:
       "TimeCam.ai collects only the minimum data required to provide app functionality. This placeholder will be replaced with the official policy.",
     terms:
