@@ -37,6 +37,22 @@ type GenerateResponse = {
   textResponse?: string;
 };
 
+async function parseApiResponse<T>(response: Response): Promise<T & { error?: string }> {
+  const text = await response.text();
+
+  if (!text) {
+    return {} as T & { error?: string };
+  }
+
+  try {
+    return JSON.parse(text) as T & { error?: string };
+  } catch {
+    throw new Error(
+      `Request failed with ${response.status}. Response was not JSON: ${text.slice(0, 200)}`
+    );
+  }
+}
+
 const defaultProjectSlug = "scriptforge";
 
 export default function AdvertMaker({
@@ -158,10 +174,12 @@ export default function AdvertMaker({
         method: "PUT"
       }
     );
-    const json = (await response.json()) as UploadedReference & { error?: string };
+    const json = await parseApiResponse<UploadedReference>(response);
 
     if (!response.ok) {
-      throw new Error(json.error ?? "Reference upload failed.");
+      throw new Error(
+        json.error ?? `Reference upload failed with ${response.status}.`
+      );
     }
 
     setReferences((currentReferences) =>
@@ -203,10 +221,10 @@ export default function AdvertMaker({
         },
         method: "POST"
       });
-      const json = (await response.json()) as GenerateResponse & { error?: string };
+      const json = await parseApiResponse<GenerateResponse>(response);
 
       if (!response.ok) {
-        throw new Error(json.error ?? "Generation failed.");
+        throw new Error(json.error ?? `Generation failed with ${response.status}.`);
       }
 
       setLatestResult(json);

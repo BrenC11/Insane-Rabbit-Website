@@ -142,18 +142,23 @@ export function isBlobConfigured() {
 
 export function isFileAiConfigured() {
   return Boolean(
+    process.env.FAL_KEY?.trim() ||
+    process.env.FAL_KEY_ID?.trim() ||
     process.env.FAL_API_KEY?.trim() ||
     process.env.FILE_API_KEY?.trim() ||
-    process.env.FAL_KEY?.trim() ||
     process.env.FILE_AI_API_KEY?.trim()
   );
 }
 
 export function getFileAiApiKey() {
+  if (process.env.FAL_KEY_ID?.trim() && process.env.FAL_KEY_SECRET?.trim()) {
+    return `${process.env.FAL_KEY_ID.trim()}:${process.env.FAL_KEY_SECRET.trim()}`;
+  }
+
   return (
+    process.env.FAL_KEY?.trim() ||
     process.env.FAL_API_KEY?.trim() ||
     process.env.FILE_API_KEY?.trim() ||
-    process.env.FAL_KEY?.trim() ||
     process.env.FILE_AI_API_KEY?.trim() ||
     ""
   );
